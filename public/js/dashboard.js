@@ -12,15 +12,21 @@ var table_all = $('#table_all').DataTable({
     "ajax": {
         "url": 'api/v1/get_type',
         "type": 'get',
+        "data": function (d) {
+            d.type_select_table = $("#type_select_table").val();
+        }
     },
     "columns": [{
-        "data": 'rownum',
-        "name": 'rownum',
-        "width": '5%',
+        "data": 'list_id',
+        "name": 'list_id',
+        "width": '5%', 
+        "render": function (data, type, full, meta) {
+            return meta.row+1;
+        }
     },{
         "data": 'item_type',
         "name": 'item_type',
-        "width": '15%',
+        "width": '10%',
     },{
         "data": 'item_detail',
         "name": 'item_detail',
@@ -34,17 +40,21 @@ var table_all = $('#table_all').DataTable({
         "name": 'date_found',
         "width": '10%',
     },{
+        "data": 'return_item',
+        "name": 'return_item',
+        "width": '5%',
+    },{
         "data": 'action',
         "name": 'action',
         "width": '20%',
     }],
     "columnDefs": [{
             "className": 'text-left',
-            "targets": []
+            "targets": [1]
         },
         {
             "className": 'text-center',
-            "targets": [0, 1, 4, 5]
+            "targets": [0, 4, 5, 6]
         },{
             "className": 'text-right',
             "targets": []
@@ -125,6 +135,11 @@ $(document).ajaxComplete(function () {
         "html": true,
     });
 });
+
+var load_table_on_select = function load_table_on_select() {
+    var table = $('#table_all').DataTable();
+    table.draw();
+}
 
 var Gen_upload_file = function Gen_upload_file() {
     // Click File
@@ -229,6 +244,9 @@ var Open_model_info = function Open_model_info(e) {
     $("body").css("padding-right", "0");
     $(".model_view_chk_date").hide();
     var list_item_id = $(e).attr('list_item_id');
+    $("#head_model_info").removeClass('bg-danger').addClass('bg-info');
+    $("#head_model_tital").html('<i class="fas fa-info"></i> ดูข้อมูล');
+    $("#footer_button_info").html('<div class="col-md-12"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button></div>');
     // Data
     var Data = new FormData();
     Data.append('list_item_id', list_item_id);
@@ -262,30 +280,24 @@ var Open_model_info = function Open_model_info(e) {
             $("#view_record_by").val(res.data.record_by);
             // IMG
             // Reset Img 
-            $("#carousel-indicators-1").remove();
             $("#carousel-inner-1").remove();
             $("#div-inner-1").remove();
-            $("#carousel-indicators-2").remove();
-            $("#carousel-inner-item-2").remove();
+            $("#carousel-inner-2").remove();
             $("#div-inner-2").remove();
-            $("#carousel-indicators-3").remove();
-            $("#carousel-inner-item-3").remove();
+            $("#carousel-inner-3").remove();
             $("#div-inner-3").remove();
             $(".carousel-control-prev").remove();
             $(".carousel-control-next").remove();
             // Add Img
             if (res.data.img_1 != null) {
-                $(".carousel-indicators").append('<li data-target="#info_model_view" data-slide-to="0" id="carousel-indicators-1" class="active"></li>');
                 $(".carousel-inner").append('<div class="carousel-item active" id="div-inner-1"><img src="" id="carousel-inner-1" class="d-block rounded" width="200" height="150"></div>');
                 $("#carousel-inner-1").attr('src', 'img/main/' + res.data.img_1);
             }
             if (res.data.img_2 != null) {
-                $(".carousel-indicators").append('<li data-target="#info_model_view" data-slide-to="1" id="carousel-indicators-2"></li>');
                 $(".carousel-inner").append('<div class="carousel-item" id="div-inner-2"><img src="" id="carousel-inner-2" class="d-block rounded" width="200" height="150"></div>');
                 $("#carousel-inner-2").attr('src', 'img/main/' + res.data.img_2);
             }
             if (res.data.img_3 != null) {
-                $(".carousel-indicators").append('<li data-target="#info_model_view" data-slide-to="2" id="carousel-indicators-3"></li>');
                 $(".carousel-inner").append('<div class="carousel-item" id="div-inner-3"><img src="" id="carousel-inner-3" class="d-block rounded" width="200" height="150"></div>');
                 $("#carousel-inner-3").attr('src', 'img/main/' + res.data.img_3);
             }
@@ -562,15 +574,14 @@ var Save_model_edit = function Save_model_edit(e) {
 
 var Open_model_delete = function Open_model_delete(e) {
     var Toastr = Set_Toastr();
-    $('#model_crate_delete').modal('show');
-    $("body").css("padding-right", "0");
-    $("#model_delete_id_view").html($(e).attr('list_item_id'));
-    $("#model_submit_delete").click(function () {
-        var loading = Ladda.create(this);
-        loading.start();
-        loading.setProgress(5);
+    var list_item_id = $(e).attr('list_item_id');
+    this.Open_model_info('<div list_item_id="' + list_item_id + '"></div');
+    $("#head_model_info").removeClass('bg-info').addClass('bg-danger');
+    $("#head_model_tital").html('<i class="fas fa-trash"></i> ลบข้อมูล');
+    $("#footer_button_info").html('<div class="col-md-6"><button class="btn btn-sm btn-block btn-primary" id="confirm_delete"><i class="fas fa-trash"></i> ยืนยันการลบข้อมูล</button></div><div class="col-md-6"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button></div>');
+    $("#confirm_delete").on("click", function () {
         var Data = new FormData();
-        Data.append('list_item_id', $(e).attr('list_item_id'));
+        Data.append('list_item_id', list_item_id);
         // Ajax
         $.ajax({
             url: 'api/v1/delete_item',
@@ -585,19 +596,11 @@ var Open_model_delete = function Open_model_delete(e) {
             data: Data,
             success: function (res) {
                 Toastr["success"](res.error_text);
-                $('#model_crate_delete').modal('hide');
+                $('#model_crate_info').modal('hide');
                 var table = $('#table_all').DataTable();
                 table.draw();
-                loading.remove();
             }
-        }).always(
-            function () {
-                loading.setProgress(45);
-                setTimeout(function () {
-                    loading.remove();
-                }, 500);
-            }
-        );
+        });
     });
 }
 

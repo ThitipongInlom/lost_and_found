@@ -38,6 +38,11 @@
                 <div class="card card-success" style="margin-right: 20px;margin-left: 20px;">
                     <div class="card-body" style="background-color: #b6bcc14d !important;">
                         <div class="text-right mb-2">
+                            <select class="custom-select custom-select-sm col-2" id="type_select_table" onchange="load_table_on_select();">
+                                <option value="return_all" selected>รายการข้อมูลทั้งหมด</option>
+                                <option value="return_yes">รายการข้อมูล ลูกค้าที่มารับแล้ว</option>
+                                <option value="return_no">รายการข้อมูล ลืมของที่อยู่ในระบบ</option>
+                            </select>
                             <button class="btn btn-sm btn-success" onclick="Open_model_add();"><i class="fas fa-plus"></i> เพิ่มข้อมูล</button>
                         </div>
                         <div class="table-responsive">
@@ -49,6 +54,7 @@
                                     <th>Detail</th>
                                     <th>Locate</th>
                                     <th>Date</th>
+                                    <th>Return</th>
                                     <th>Menu</th>
                                 </tr>
                             </thead>
@@ -196,8 +202,8 @@
         <div class="modal fade" id="model_crate_info" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header bg-info">
-                        <h5 class="modal-title"><i class="fas fa-info"></i> ดูข้อมูล</h5>
+                    <div class="modal-header" id="head_model_info">
+                        <h5 class="modal-title" id="head_model_tital"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -208,7 +214,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <b>รูปภาพรายการ :</b>
-                                        <div class="bd-example mb-3" style="border: 2px solid #c2c7d0;">
+                                        <div class="bd-example mb-3" style="border: 2px solid #c2c7d0;border-radius: 5px;">
                                             <div id="info_model_view" class="carousel slide carousel-fade" data-ride="carousel">
                                                 <ol class="carousel-indicators"></ol>
                                                 <div class="carousel-inner"></div>
@@ -298,11 +304,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button>
-                            </div>
-                        </div>
+                        <div class="row" id="footer_button_info"></div>
                     </div>
                 </div>
             </div>
@@ -416,35 +418,6 @@
                             </div>
                             <div class="col-md-6">
                                 <button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="model_crate_delete" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger">
-                        <h5 class="modal-title"><i class="fas fa-trash"></i> ยืนยันการลบข้อมูล</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p><b>ยืนยันการลบข้อมูล ถ้าตกลงในการลง ข้อมูล จะไม่สามารถ กู้ข้อมูลที่ลบไปได้แล้ว !</b></p>
-                                <p><b>ID ข้อมูล : <span id="model_delete_id_view"><span></b></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="button" class="btn btn-sm btn-block btn-primary" id="model_submit_delete"><i class="fas fa-save"></i> ยืนยันการลบข้อมูล</button>  
-                            </div>
-                            <div class="col-md-6">
-                                <button type="button" class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button> 
                             </div>
                         </div>
                     </div>

@@ -205,8 +205,13 @@ class dashboard extends Controller
 
     public function get_type(Request $request)
     {
-        DB::statement(DB::raw('set @rownum=0'));
-        $list_item = list_item::select('list_item.*',DB::raw('@rownum  := @rownum  + 1 AS rownum'));
+        if ($request->get('type_select_table') == 'return_all'){
+            $list_item = list_item::get();
+        }elseif ($request->get('type_select_table') == 'return_yes') {
+            $list_item = list_item::where('return_item', 'turn')->get();
+        }elseif ($request->get('type_select_table') == 'return_no') {
+            $list_item = list_item::whereNull('return_item')->get();
+        }
         return Datatables::of($list_item)
             ->addColumn('action', function ($list_item) {
                 $button = '';
@@ -217,6 +222,7 @@ class dashboard extends Controller
                     $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ปริ้นข้อมูล"><i class="fas fa-print"></i> Print</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-success" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="คืนของให้ลูกค้า"><i class="fas fa-undo-alt"></i> Turn</button> ';
                 }else{
+                    $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ดูข้อมูล" onclick="Open_model_info(this);"><i class="fas fa-info"></i> Info</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ปริ้นข้อมูล"><i class="fas fa-print"></i> Print</button> ';
                 }
                 return $button;
@@ -226,7 +232,15 @@ class dashboard extends Controller
             ->editColumn('date_found', function($list_item) {
                 return date('d/m/Y', strtotime($list_item->date_found));
             })
-            ->rawColumns(['action'])
+            ->editColumn('return_item', function($list_item) {
+                if($list_item->return_item == '') {
+                    $new_return_item = '<h5><span class="badge badge-secondary">N</span></h5>';
+                }else{
+                    $new_return_item = '<h5><span class="badge badge-success">Y</span></h5>';
+                }
+                return $new_return_item;
+            })
+            ->rawColumns(['return_item','action'])
             ->make(true);
     }
 }

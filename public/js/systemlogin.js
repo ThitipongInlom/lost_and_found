@@ -98,11 +98,11 @@ var login = function login() {
                 } else {
                     // Text Error 
                     Toastr["error"](res.error_text);
-                    $("#username").removeClass('is-valid');
-                    $("#password").removeClass('is-valid');
-                    $("#username").val('');
-                    $("#password").val('');
-                    $("#username").focus();
+                    $("#username_login").removeClass('is-valid');
+                    $("#password_login").removeClass('is-valid');
+                    $("#username_login").val('');
+                    $("#password_login").val('');
+                    $("#username_login").focus();
                 }
             }
         }).always(
