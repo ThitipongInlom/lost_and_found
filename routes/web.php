@@ -1,6 +1,8 @@
 <?php
 // Dashboard
 Route::get('/', 'dashboard@dashboard')->middleware('auth');
+// Print
+Route::get('/print/{item_id}', 'dashboard@print_item');
 // Login
 Route::get('/login', 'systemlogin@login_page')->name('login');
 // Register

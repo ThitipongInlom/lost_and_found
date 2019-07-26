@@ -22,17 +22,27 @@
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <select class="custom-select custom-select-sm" style="margin-top:5px;">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </li>
+                @if (Auth::User()->status == 'admin')
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <b><i class="fas fa-cogs"></i> ตั้งค่า</b>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-user-cog"></i> จัดการ ผู้ใช้งาน</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-briefcase"></i> จัดการ ประเภท</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-sliders-h"></i> ตั้งค่าระบบ</a>
                     </div>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ url('/logout') }}"><b><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</b></a>
                 </li>

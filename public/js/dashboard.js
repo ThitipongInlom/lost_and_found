@@ -50,11 +50,11 @@ var table_all = $('#table_all').DataTable({
     }],
     "columnDefs": [{
             "className": 'text-left',
-            "targets": [1]
+            "targets": [1, 6]
         },
         {
             "className": 'text-center',
-            "targets": [0, 4, 5, 6]
+            "targets": [0, 4, 5]
         },{
             "className": 'text-right',
             "targets": []
@@ -580,28 +580,89 @@ var Open_model_delete = function Open_model_delete(e) {
     $("#head_model_tital").html('<i class="fas fa-trash"></i> ลบข้อมูล');
     $("#footer_button_info").html('<div class="col-md-6"><button class="btn btn-sm btn-block btn-primary" id="confirm_delete"><i class="fas fa-trash"></i> ยืนยันการลบข้อมูล</button></div><div class="col-md-6"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button></div>');
     $("#confirm_delete").on("click", function () {
-        var Data = new FormData();
-        Data.append('list_item_id', list_item_id);
-        // Ajax
-        $.ajax({
-            url: 'api/v1/delete_item',
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: Data,
-            success: function (res) {
-                Toastr["success"](res.error_text);
-                $('#model_crate_info').modal('hide');
-                var table = $('#table_all').DataTable();
-                table.draw();
-            }
-        });
+    var Data = new FormData();
+    Data.append('list_item_id', list_item_id);
+    // Ajax
+    $.ajax({
+        url: 'api/v1/delete_item',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            Toastr["success"](res.error_text);
+            $('#model_crate_info').modal('hide');
+            var table = $('#table_all').DataTable();
+            table.draw();
+        }
     });
+    });
+}
+
+var Open_model_print = function Open_model_print(e) {
+    var Toastr = Set_Toastr();
+    var list_item_id = $(e).attr('list_item_id');
+    $('#model_crate_print').modal('show');
+    $("body").css("padding-right", "0");
+    $("#print_tr_guest").hide();
+    var Data = new FormData();
+    Data.append('list_item_id', list_item_id);
+    // Ajax
+    $.ajax({
+        url: 'api/v1/edit_item',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            $("#print_itemid").html(res.data.list_id);
+            $("#print_item_type").html(res.data.item_type);
+            $("#print_place_found").html(res.data.place_found);
+            $("#print_item_detail").html(res.data.item_detail);
+            $("#print_date_found").html(moment(res.data.date_found).format('DD/MM/YYYY'));
+            $("#print_found_by").html(res.data.found_by);
+            $("#print_locate_track").html(res.data.locate_track);
+            if (res.data.guest_name != '-') {
+                $("#print_tr_guest").show();
+                $("#print_guest_name").html(res.data.guest_name);
+                $("#print_check_in_date").html(moment(res.data.check_in_date).format('DD/MM/YYYY'));
+                $("#print_check_out_date").html(moment(res.data.check_out_date).format('DD/MM/YYYY'));
+            }
+
+            $("#print_img_1").remove();
+            $("#print_img_2").remove();
+            $("#print_img_3").remove();
+            if (res.data.img_1 != null) {
+                $("#print_td_img_1").append('<img src="" id="print_img_1" class="d-block rounded" width="200" height="150">');
+                $("#print_img_1").attr('src', 'img/main/' + res.data.img_1);
+            }
+            if (res.data.img_2 != null) {
+                $("#print_td_img_2").append('<img src="" id="print_img_2" class="d-block rounded" width="200" height="150">');
+                $("#print_img_2").attr('src', 'img/main/' + res.data.img_2);
+            }
+            if (res.data.img_3 != null) {
+                $("#print_td_img_3").append('<img src="" id="print_img_3" class="d-block rounded" width="200" height="150">');
+                $("#print_img_3").attr('src', 'img/main/' + res.data.img_3);
+            }
+            $("#submit_print").attr('item_id', res.data.list_id);
+        }
+    });
+}
+
+var Open_print = function Open_print(e) {
+    var Sned_id = $(e).attr('item_id');
+    var New_winwodws;
+    New_winwodws = window.open("print/" + Sned_id, "", "width=800, height=500");
 }
 
 var Set_add_model_null = function Set_add_model_null() {

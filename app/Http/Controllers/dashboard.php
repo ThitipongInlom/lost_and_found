@@ -219,11 +219,11 @@ class dashboard extends Controller
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ดูข้อมูล" onclick="Open_model_info(this);"><i class="fas fa-info"></i> Info</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-warning" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="แก้ไขข้อมูล" onclick="Open_model_edit(this);"><i class="fas fa-edit"></i> Edit</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-danger" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ลบข้อมูล" onclick="Open_model_delete(this);"><i class="fas fa-trash"></i> Del</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ปริ้นข้อมูล"><i class="fas fa-print"></i> Print</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ปริ้นข้อมูล" onclick="Open_model_print(this);"><i class="fas fa-print"></i> Print</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-success" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="คืนของให้ลูกค้า"><i class="fas fa-undo-alt"></i> Turn</button> ';
                 }else{
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ดูข้อมูล" onclick="Open_model_info(this);"><i class="fas fa-info"></i> Info</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ปริ้นข้อมูล"><i class="fas fa-print"></i> Print</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="ปริ้นข้อมูล" onclick="Open_model_print(this);"><i class="fas fa-print"></i> Print</button> ';
                 }
                 return $button;
             })
@@ -242,5 +242,12 @@ class dashboard extends Controller
             })
             ->rawColumns(['return_item','action'])
             ->make(true);
+    }
+
+    public function print_item(Request $request,$item_id)
+    {
+        $query = list_item::where('list_id', $item_id)->get();
+        return view('print',[
+                    'item' => $query]);
     }
 }

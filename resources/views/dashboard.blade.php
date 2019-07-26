@@ -424,6 +424,79 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="model_crate_print" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h5 class="modal-title"><i class="fas fa-print"></i> ปริ้นข้อมูล</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <img class="mb-3" src="{{ url('img/web_setting/thezign.gif') }}" width="100" height="40">
+                                <p class="mt-2"><b>อนุญาติให้</b> ........................................ <b>หมายเลข</b> ............................ <b>ตำแหน่ง</b> ....................................</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-sm table-bordered">
+                                    <tr class="text-center">
+                                        <td colspan="3" class="bg-dark">ข้อมูลรายการ</td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td><b>Item ID : </b> <sapn id="print_itemid"></sapn></td>
+                                        <td><b>ประเภทรายการ : </b> <span id="print_item_type"></span></td>
+                                        <td><b>สถานที่พบ : </b> <span id="print_place_found"></span></td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td colspan="3"><b style="margin-left:5px;">รายละเอียดของรายการ : </b> <span id="print_item_detail"></span></td>
+                                    </tr>
+                                    <tr id="print_tr_guest" class="text-center">
+                                        <td><b>ชื่อลูกค้า : </b> <sapn id="print_guest_name"></sapn></td>
+                                        <td><b>วันที่เช็คอิน : </b> <sapn id="print_check_in_date"></sapn></td>
+                                        <td><b>วันที่เช็คเอ้าท์ : </b> <sapn id="print_check_out_date"></sapn></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td><b>วันที่พบ : </b> <sapn id="print_date_found"></sapn></td>
+                                        <td><b>ผู้พบ : </b> <sapn id="print_found_by"></sapn></td>
+                                        <td><b>แผนก : </b> <sapn id="print_locate_track"></sapn></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td colspan="3" class="bg-dark">รูปภาพรายการ</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" id="print_td_img_1"></td>
+                                        <td align="center" id="print_td_img_2"></td>
+                                        <td align="center" id="print_td_img_3"></td>
+                                    </tr>
+                                </table>
+                                <table class="table table-sm table-bordered">
+                                    <tr class="text-center">
+                                        <td colspan="4" class="bg-dark">ลงชื่อลายเซ็น</td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td>พนักงาน ....................</td>
+                                        <td>หัวหน้าแผนก .....................</td>
+                                        <td>ฝ่ายบุคคล ....................</td>
+                                        <td>รปภ ....................</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-sm btn-primary" onclick="Open_print(this);" id="submit_print"><i class="fas fa-print"></i> ปริ้นข้อมูล</button>
+                                <button class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
         <!-- All Js -->
         <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
