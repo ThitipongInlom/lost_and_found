@@ -204,24 +204,30 @@ var Gen_upload_file = function Gen_upload_file() {
 }
 
 var GenImg_preview = function GenImg_preview() {
+    var lang = $('html').attr('lang');
+    if (lang == 'th') {
+        var delete_img = 'ลบรูปภาพ';
+    } else if (lang == 'en') {
+        var delete_img = 'Delete photo';
+    }
     if ($(".show_img_render").length == 0) {
         var reader = new FileReader();
         reader.onload = function (event) {
-            $(".images").prepend('<div class="img show_img_render" img_load="file_1" style="background-image: url(\'' + event.target.result + '\');"><span>ลบรูปภาพ</span></div>');
+            $(".images").prepend('<div class="img show_img_render" img_load="file_1" style="background-image: url(\'' + event.target.result + '\');"><span>' + delete_img + '</span></div>');
         };
         reader.readAsDataURL($("#file_1")[0].files[0]);
     }
     if ($(".show_img_render").length == 1) {
         var reader = new FileReader();
         reader.onload = function (event) {
-            $(".images").prepend('<div class="img show_img_render" img_load="file_2" style="background-image: url(\'' + event.target.result + '\');"><span>ลบรูปภาพ</span></div>');
+            $(".images").prepend('<div class="img show_img_render" img_load="file_2" style="background-image: url(\'' + event.target.result + '\');"><span>' + delete_img + '</span></div>');
         };
         reader.readAsDataURL($("#file_2")[0].files[0]);
     }
     if ($(".show_img_render").length == 2) {
         var reader = new FileReader();
         reader.onload = function (event) {
-            $(".images").prepend('<div class="img show_img_render" img_load="file_3" style="background-image: url(\'' + event.target.result + '\');"><span>ลบรูปภาพ</span></div>');
+            $(".images").prepend('<div class="img show_img_render" img_load="file_3" style="background-image: url(\'' + event.target.result + '\');"><span>' + delete_img + '</span></div>');
         };
         reader.readAsDataURL($("#file_3")[0].files[0]);
     }
@@ -240,13 +246,25 @@ $('#model_crate_add').on('hidden.bs.modal', function (e) {
 });
 
 var Open_model_info = function Open_model_info(e) {
+    var lang = $('html').attr('lang');
+    if (lang == 'th') {
+        var view = 'ดูข้อมูล';
+        var close = 'ปิด';
+        var turn_back = 'ย้อนกลับ';
+        var next = 'ต่อไป';
+    } else if (lang == 'en') {
+        var view = 'View Data';
+        var close = 'Close';
+        var turn_back = 'Turn Back';
+        var next = 'Next';
+    }
     $('#model_crate_info').modal('show');
     $("body").css("padding-right", "0");
     $(".model_view_chk_date").hide();
     var list_item_id = $(e).attr('list_item_id');
     $("#head_model_info").removeClass('bg-danger').addClass('bg-info');
-    $("#head_model_tital").html('<i class="fas fa-info"></i> ดูข้อมูล');
-    $("#footer_button_info").html('<div class="col-md-12"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button></div>');
+    $("#head_model_tital").html('<i class="fas fa-info"></i> ' + view);
+    $("#footer_button_info").html('<div class="col-md-12"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ' + close + '</button></div>');
     // Data
     var Data = new FormData();
     Data.append('list_item_id', list_item_id);
@@ -303,8 +321,8 @@ var Open_model_info = function Open_model_info(e) {
             }
             // Add Next IMG
             if (res.data.img_2 != null || res.data.img_3 != null) {
-                $(".carousel-control-prev-view").prepend('<a class="carousel-control-prev" href="#info_model_view" role="button" data-slide="prev"><span class="carousel-control-prev-icon" style="background-color: #000000;" aria-hidden="true"></span><span class="sr-only">ย้อนกลับ</span></a>');
-                $(".carousel-control-next-view").prepend('<a class="carousel-control-next" href="#info_model_view" role="button" data-slide="next"><span class="carousel-control-next-icon" style="background-color: #000000;" aria-hidden="true"></span><span class="sr-only">ต่อไป</span></a>');
+                $(".carousel-control-prev-view").prepend('<a class="carousel-control-prev" href="#info_model_view" role="button" data-slide="prev"><span class="carousel-control-prev-icon" style="background-color: #000000;" aria-hidden="true"></span><span class="sr-only">' + turn_back + '</span></a>');
+                $(".carousel-control-next-view").prepend('<a class="carousel-control-next" href="#info_model_view" role="button" data-slide="next"><span class="carousel-control-next-icon" style="background-color: #000000;" aria-hidden="true"></span><span class="sr-only">' + next + '</span></a>');
             }
         }
     });
@@ -363,12 +381,27 @@ var Save_model_add = function Save_model_add() {
             }
         );
     } else {
-        Toastr["error"]("กรุณากรอกข้อมูลให้ครบ ทุกช่อง");
+        var lang = $('html').attr('lang');
+        if (lang == 'th') {
+            Toastr["error"]("กรุณากรอกข้อมูลให้ครบ ทุกช่อง");
+        } else if (lang == 'en') {
+            Toastr["error"]("Please fill out all fields.");
+        }
         loading.remove();
     }
 }
 
 var Open_model_edit = function Open_model_edit(e) {
+    var lang = $('html').attr('lang');
+    if (lang == 'th') {
+        var add_pictures = 'เพิ่มรูปภาพ';
+        var view_pictures = 'ดูรูปภาพ';
+        var delete_pictures = 'ลบรูปภาพ';
+    } else if (lang == 'en') {
+        var add_pictures = 'Add pictures';
+        var view_pictures = 'View';
+        var delete_pictures = 'Delete';
+    }
     var Toastr = Set_Toastr();
     $('#model_crate_edit').modal('show');
     $("body").css("padding-right", "0");
@@ -417,44 +450,44 @@ var Open_model_edit = function Open_model_edit(e) {
             $("#file_edit_3").val('');
             // Add IMG  
             if (res.data.img_1 != null) {
-                $(".edit_img_div").append('<div class="edit_img_div_images show_img_edit_render mb-1 mt-1 text-center" id="edit_img_div_1"><span class="badge badge-primary" name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);">ดูรูปภาพ</span>  <span class="badge badge-danger" list_id="' + res.data.list_id + '"  name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="Delete_Image(this,1);">ลบรูปภาพ</span></div>');
+                $(".edit_img_div").append('<div class="edit_img_div_images show_img_edit_render mb-1 mt-1 text-center" id="edit_img_div_1"><span class="badge badge-primary" name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);">' + view_pictures + '</span>  <span class="badge badge-danger" list_id="' + res.data.list_id + '"  name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="Delete_Image(this,1);">' + delete_pictures + '</span></div>');
             }
             if (res.data.img_2 != null) {
-                $(".edit_img_div").append('<div class="edit_img_div_images show_img_edit_render mb-1 text-center" id="edit_img_div_2"><span class="badge badge-primary" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);">ดูรูปภาพ</span>  <span class="badge badge-danger" list_id="' + res.data.list_id + '" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="Delete_Image(this,2);">ลบรูปภาพ</span></div>');
+                $(".edit_img_div").append('<div class="edit_img_div_images show_img_edit_render mb-1 text-center" id="edit_img_div_2"><span class="badge badge-primary" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);">' + view_pictures + '</span>  <span class="badge badge-danger" list_id="' + res.data.list_id + '" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="Delete_Image(this,2);">' + delete_pictures + '</span></div>');
             }
             if (res.data.img_3 != null) {
-                $(".edit_img_div").append('<div class="edit_img_div_images show_img_edit_render mb-1 text-center" id="edit_img_div_3"><span class="badge badge-primary" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);">ดูรูปภาพ</span>  <span class="badge badge-danger" list_id="' + res.data.list_id + '" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="Delete_Image(this,3);">ลบรูปภาพ</span></div>');
+                $(".edit_img_div").append('<div class="edit_img_div_images show_img_edit_render mb-1 text-center" id="edit_img_div_3"><span class="badge badge-primary" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);">' + view_pictures + '</span>  <span class="badge badge-danger" list_id="' + res.data.list_id + '" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="Delete_Image(this,3);">' + delete_pictures + '</span></div>');
             }
             // Check IMG SUM
             if ($(".show_img_edit_render").length == 1) {
                 if (res.data.img_1 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>เพิ่มรูปภาพ 1</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>' + add_pictures + ' 1</b></div>');
                 }
                 if (res.data.img_2 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>เพิ่มรูปภาพ 2</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>' + add_pictures + ' 2</b></div>');
                 }
                 if (res.data.img_3 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>เพิ่มรูปภาพ 3</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>' + add_pictures + ' 3</b></div>');
                 }
             } else if ($(".show_img_edit_render").length == 2) {
                 if (res.data.img_1 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>เพิ่มรูปภาพ 1</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>' + add_pictures + ' 1</b></div>');
                 }
                 if (res.data.img_2 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>เพิ่มรูปภาพ 2</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>' + add_pictures + ' 2</b></div>');
                 }
                 if (res.data.img_3 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>เพิ่มรูปภาพ 3</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>' + add_pictures + ' 3</b></div>');
                 }
             } else if ($(".show_img_edit_render").length == 3) {
                 if (res.data.img_1 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>เพิ่มรูปภาพ 1</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>' + add_pictures + ' 1</b></div>');
                 }
                 if (res.data.img_2 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>เพิ่มรูปภาพ 2</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>' + add_pictures + ' 2</b></div>');
                 }
                 if (res.data.img_3 == null) {
-                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>เพิ่มรูปภาพ 3</b></div>');
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>' + add_pictures + ' 3</b></div>');
                 }
             }
         }
@@ -462,6 +495,12 @@ var Open_model_edit = function Open_model_edit(e) {
 }
 
 var file_edit_select = function file_edit_select(e,mode) {
+    var lang = $('html').attr('lang');
+    if (lang == 'th') {
+        var wait_save_picture = 'รอ บันทึกรูปภาพ';
+    } else if (lang == 'en') {
+        var wait_save_picture = 'Wait to save';
+    }
     // Open Select file
     if (e == '1' && mode == '77') {
         $("#file_edit_1").click();
@@ -472,11 +511,11 @@ var file_edit_select = function file_edit_select(e,mode) {
     }
     // onchange
     if (e == '1' && mode == '100') {
-        $("#edit_img_div_add_1").html('<i class="fas fa-image"></i> <b>รอ บันทึกรูปภาพ</b>');
+        $("#edit_img_div_add_1").html('<i class="fas fa-image"></i> <b>' + wait_save_picture + '</b>');
     } else if (e == '2' && mode == '100') {
-        $("#edit_img_div_add_2").html('<i class="fas fa-image"></i> <b>รอ บันทึกรูปภาพ</b>');
+        $("#edit_img_div_add_2").html('<i class="fas fa-image"></i> <b>' + wait_save_picture + '</b>');
     } else if (e == '3' && mode == '100') {
-        $("#edit_img_div_add_3").html('<i class="fas fa-image"></i> <b>รอ บันทึกรูปภาพ</b>');
+        $("#edit_img_div_add_3").html('<i class="fas fa-image"></i> <b>' + wait_save_picture + '</b>');
     }
 }
 
@@ -492,6 +531,12 @@ var OpenImage_windows = function OpenImage_windows(e) {
 }
 
 var Delete_Image = function Delete_Image(e,number) {
+    var lang = $('html').attr('lang');
+    if (lang == 'th') {
+        var finish_deleting_photos = 'ลบรูปภาพเสร็จสิ้น';
+    } else if (lang == 'en') {
+        var finish_deleting_photos = 'Finish deleting';
+    }
     // Data
     var Data = new FormData();
     Data.append('list_id', $(e).attr('list_id'));
@@ -511,11 +556,11 @@ var Delete_Image = function Delete_Image(e,number) {
         data: Data,
         success: function (res) {
             if (number == '1') {
-                $("#edit_img_div_1").html('<b><i class="fas fa-trash"></i> ลบรูปภาพเสร็จสิ้น</b>');
+                $("#edit_img_div_1").html('<b><i class="fas fa-trash"></i> ' + finish_deleting_photos + '</b>');
             } else if (number == '2') {
-                $("#edit_img_div_2").html('<b><i class="fas fa-trash"></i> ลบรูปภาพเสร็จสิ้น</b>');
+                $("#edit_img_div_2").html('<b><i class="fas fa-trash"></i> ' + finish_deleting_photos + '</b>');
             } else if (number == '3') {
-                $("#edit_img_div_3").html('<b><i class="fas fa-trash"></i> ลบรูปภาพเสร็จสิ้น</b>');
+                $("#edit_img_div_3").html('<b><i class="fas fa-trash"></i> ' + finish_deleting_photos + '</b>');
             }
         }
     });
@@ -573,12 +618,22 @@ var Save_model_edit = function Save_model_edit(e) {
 }
 
 var Open_model_delete = function Open_model_delete(e) {
+    var lang = $('html').attr('lang');
+    if (lang == 'th') {
+        var delete_data = 'ลบข้อมูล';
+        var close = 'ปิด';
+        var confirm_deletion = 'ยืนยันการลบข้อมูล';
+    } else if (lang == 'en') {
+        var delete_data = 'Delete Data';
+        var close = 'Close';
+        var confirm_deletion = 'Confirm data deletion';
+    }
     var Toastr = Set_Toastr();
     var list_item_id = $(e).attr('list_item_id');
     this.Open_model_info('<div list_item_id="' + list_item_id + '"></div');
     $("#head_model_info").removeClass('bg-info').addClass('bg-danger');
-    $("#head_model_tital").html('<i class="fas fa-trash"></i> ลบข้อมูล');
-    $("#footer_button_info").html('<div class="col-md-6"><button class="btn btn-sm btn-block btn-primary" id="confirm_delete"><i class="fas fa-trash"></i> ยืนยันการลบข้อมูล</button></div><div class="col-md-6"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button></div>');
+    $("#head_model_tital").html('<i class="fas fa-trash"></i> ' + delete_data);
+    $("#footer_button_info").html('<div class="col-md-6"><button class="btn btn-sm btn-block btn-primary" id="confirm_delete"><i class="fas fa-trash"></i> ' + confirm_deletion + '</button></div><div class="col-md-6"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ' + close + '</button></div>');
     $("#confirm_delete").on("click", function () {
     var Data = new FormData();
     Data.append('list_item_id', list_item_id);

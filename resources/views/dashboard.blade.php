@@ -4,7 +4,7 @@
     $DateTimeShow = dashboard::DateThai();
     $ver = web_setting::system_ver();
 @endphp
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
         <!-- Title here -->
@@ -39,23 +39,23 @@
                     <div class="card-body" style="background-color: #b6bcc14d !important;">
                         <div class="text-right mb-2">
                             <select class="custom-select custom-select-sm col-2" id="type_select_table" onchange="load_table_on_select();">
-                                <option value="return_all" selected>รายการข้อมูลทั้งหมด</option>
-                                <option value="return_yes">รายการข้อมูล ลูกค้าที่มารับแล้ว</option>
-                                <option value="return_no">รายการข้อมูล ลืมของที่อยู่ในระบบ</option>
+                                <option value="return_all" selected>@lang('dashboard.list_all_data')</option>
+                                <option value="return_yes">@lang('dashboard.list_received')</option>
+                                <option value="return_no">@lang('dashboard.list_not_received')</option>
                             </select>
-                            <button class="btn btn-sm btn-success" onclick="Open_model_add();"><i class="fas fa-plus"></i> เพิ่มข้อมูล</button>
+                            <button class="btn btn-sm btn-success" onclick="Open_model_add();"><i class="fas fa-plus"></i> @lang('dashboard.add_data')</button>
                         </div>
                         <div class="table-responsive">
                         <table class="table table-sm dt-responsive nowrap row-border table-bordered table-hover" cellspacing="0" cellpadding="0" id="table_all" width="100%">
                             <thead>
                                 <tr align="center" class="bg-primary">
                                     <th>#</th>
-                                    <th>Type</th>
-                                    <th>Detail</th>
-                                    <th>Locate</th>
-                                    <th>Date</th>
-                                    <th>Return</th>
-                                    <th>Menu</th>
+                                    <th>@lang('dashboard.type')</th>
+                                    <th>@lang('dashboard.detail')</th>
+                                    <th>@lang('dashboard.location')</th>
+                                    <th>@lang('dashboard.date')</th>
+                                    <th>@lang('dashboard.return')</th>
+                                    <th>@lang('dashboard.menu')</th>
                                 </tr>
                             </thead>
                         </table>
@@ -76,7 +76,7 @@
             <div class="modal-dialog" style="max-width: 600px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-info">
-                        <h5 class="modal-title"><i class="fas fa-plus"></i> เพิ่มข้อมูล</h5>
+                        <h5 class="modal-title"><i class="fas fa-plus"></i> @lang('dashboard.add_data')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -86,36 +86,36 @@
                             <div class="col-md-12">
                                 <div class="input-group-sm mb-2">
                                     <div class="input-group-sm">
-                                    <label for="locate_found"><span style="color:red;">*</span> สถานที่พบ : </label>
-                                        <input type="text" class="form-control form-control-sm" id="place_found" placeholder="สถานที่พบ">
+                                    <label for="locate_found"><span style="color:red;">*</span> @lang('dashboard.locate_found') : </label>
+                                        <input type="text" class="form-control form-control-sm" id="place_found" placeholder="@lang('dashboard.locate_found')">
                                     </div>  
                                 </div>
                                 <div class="input-group-sm mb-2">
-                                <b><span style="color:red;">*</span> ประเภทรายการ :</b>
+                                <b><span style="color:red;">*</span> @lang('dashboard.item_type') :</b>
                                 <select class="custom-select custom-select-sm" id="item_type">
-                                    <option value="off">เลือก ประเภทรายการ</option>
+                                    <option value="off">@lang('dashboard.select_item_type')</option>
                                 @foreach ($type as $type_row)
                                     <option value="{{ $type_row->type_name }}">{{ $type_row->type_name }}</option>    
                                 @endforeach
                                 </select>
                                 </div>
                                 <div class="input-group-sm mb-2">
-                                <label for="item_detail"><span style="color:red;">*</span> รายละเอียดของรายการ : </label>
-                                    <input type="text" class="form-control form-control-sm" id="item_detail" placeholder="รายละเอียดของรายการ">
+                                <label for="item_detail"><span style="color:red;">*</span> @lang('dashboard.item_detail') : </label>
+                                    <input type="text" class="form-control form-control-sm" id="item_detail" placeholder="@lang('dashboard.item_detail')">
                                 </div>
                             </div>        
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <div class="input-group-sm">
-                                <label for="guest_name">ชื่อลูกค้า : </label>
-                                    <input type="text" class="form-control form-control-sm" id="guest_name" placeholder="ชื่อลูกค้า" onkeyup="date_guest_select_check(this)">
+                                <label for="guest_name">@lang('dashboard.guest_name') : </label>
+                                    <input type="text" class="form-control form-control-sm" id="guest_name" placeholder="@lang('dashboard.guest_name')" onkeyup="date_guest_select_check(this)">
                                 </div>                             
                             </div>
                             <div class="col-md-6">
-                                <label for="date_found"><span style="color:red;">*</span> วันที่พบ : </label>
+                                <label for="date_found"><span style="color:red;">*</span> @lang('dashboard.date_found') : </label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control form-control-sm daterange_single" id="date_found" placeholder="วันที่พบ">
+                                    <input type="text" class="form-control form-control-sm daterange_single" id="date_found" placeholder="@lang('dashboard.date_found')">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>                                
@@ -124,18 +124,18 @@
                         </div>
                         <div class="row mb-2" id="date_guest_select">
                             <div class="col-md-6">
-                                <label for="check_in_date">วันที่เช็คอิน : </label>
+                                <label for="check_in_date">@lang('dashboard.check_in_date') : </label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control form-control-sm daterange_single" id="check_in_date" placeholder="วันที่เช็คอิน">
+                                    <input type="text" class="form-control form-control-sm daterange_single" id="check_in_date" placeholder="@lang('dashboard.check_in_date')">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>                               
                                 </div>                            
                             </div>
                             <div class="col-md-6">
-                                <label for="check_out_date">วันที่เช็คเอ้าท์ : </label>
+                                <label for="check_out_date">@lang('dashboard.check_out_date') : </label>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control form-control-sm daterange_single" id="check_out_date" placeholder="วันที่เช็คเอ้าท์">
+                                    <input type="text" class="form-control form-control-sm daterange_single" id="check_out_date" placeholder="@lang('dashboard.check_out_date')">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
@@ -144,21 +144,21 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                <label for="check_in_date"><span style="color:red;">*</span> ผู้พบ : </label>
+                                <label for="check_in_date"><span style="color:red;">*</span> @lang('dashboard.found_by') : </label>
                                 <div class="input-group-sm">
-                                    <input type="text" class="form-control" id="found_by" placeholder="ผุ้พบ">
+                                    <input type="text" class="form-control" id="found_by" placeholder="@lang('dashboard.found_by')">
                                 </div>                               
                             </div>
                             <div class="col-md-4">
-                                <label for="check_in_date"><span style="color:red;">*</span> แผนก : </label>
+                                <label for="check_in_date"><span style="color:red;">*</span> @lang('dashboard.locate_track') : </label>
                                 <div class="input-group-sm">
-                                    <input type="text" class="form-control" id="locate_track" placeholder="แผนก">
+                                    <input type="text" class="form-control" id="locate_track" placeholder="@lang('dashboard.locate_track')">
                                 </div>                             
                             </div>
                             <div class="col-md-4">
-                                <label for="check_in_date"><span style="color:red;">*</span> บันทึกโดย : </label>
+                                <label for="check_in_date"><span style="color:red;">*</span> @lang('dashboard.record_by') : </label>
                                 <div class="input-group-sm">
-                                    <input type="text" class="form-control" id="record_by" placeholder="บันทึกโดย" value="{{ Auth::User()->username }}" disabled>
+                                    <input type="text" class="form-control" id="record_by" placeholder="@lang('dashboard.record_by')" value="{{ Auth::User()->username }}" disabled>
                                 </div>                             
                             </div>
                         </div>
@@ -167,12 +167,12 @@
                             <div class="col-md-12">
                                 <div class="card" id="card_img">
                                     <div class="card-body">
-                                        <b><span style="color:red;">*</span> รูปภาพรายการ :</b>
+                                        <b><span style="color:red;">*</span> @lang('dashboard.picture_list') :</b>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="images">
                                                     <div class="pic" onclick="Gen_upload_file();">
-                                                        อัพโหลดรูป
+                                                        @lang('dashboard.upload_photo')
                                                     </div>
                                                 </div>
                                                 <div class="file_hide">
@@ -213,7 +213,7 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <b>รูปภาพรายการ :</b>
+                                        <b>@lang('dashboard.picture_list') :</b>
                                         <div class="bd-example mb-3" style="border: 2px solid #c2c7d0;border-radius: 5px;">
                                             <div id="info_model_view" class="carousel slide carousel-fade" data-ride="carousel">
                                                 <ol class="carousel-indicators"></ol>
@@ -225,9 +225,9 @@
                                         <hr>
                                         <b>Item ID :</b>  
                                         <input class="form-control form-control-sm mb-3" type="text" id="view_item_id" placeholder="Item ID" disabled>    
-                                        <b>Item Type :</b>    
+                                        <b>@lang('dashboard.item_type') :</b>    
                                         <select class="custom-select custom-select-sm" id="view_item_type" disabled>
-                                            <option value="off">เลือก ประเภทรายการ</option>
+                                            <option value="off">@lang('dashboard.select_item_type')</option>
                                         @foreach ($type as $type_row)
                                             <option value="{{ $type_row->type_name }}">{{ $type_row->type_name }}</option>    
                                         @endforeach
@@ -240,25 +240,25 @@
                                 <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <b>Locate Found :</b>  
-                                        <input class="form-control form-control-sm" type="text" id="view_locate_found" placeholder="Locate Found" disabled>
+                                        <b>@lang('dashboard.locate_found') :</b>  
+                                        <input class="form-control form-control-sm" type="text" id="view_locate_found" placeholder="@lang('dashboard.locate_found')" disabled>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <b>Item Detail :</b>  
-                                        <input class="form-control form-control-sm" type="text" id="view_item_detail" placeholder="Item Detail" disabled>
+                                        <b>@lang('dashboard.item_detail') :</b>  
+                                        <input class="form-control form-control-sm" type="text" id="view_item_detail" placeholder="@lang('dashboard.item_detail')" disabled>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <b>Guest Name</b>
-                                        <input class="form-control form-control-sm" type="text" id="view_guest_name" placeholder="Guest Name" disabled>
+                                        <b>@lang('dashboard.guest_name') :</b>
+                                        <input class="form-control form-control-sm" type="text" id="view_guest_name" placeholder="@lang('dashboard.guest_name')" disabled>
                                     </div>
                                     <div class="col-md-6">
-                                        <b>Date Found</b>
+                                        <b>@lang('dashboard.date_found') :</b>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control form-control-sm daterange_single" id="view_date_found" placeholder="Date Found" disabled>
+                                            <input type="text" class="form-control form-control-sm daterange_single" id="view_date_found" placeholder="@lang('dashboard.date_found')" disabled>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>                                
@@ -267,18 +267,18 @@
                                 </div>
                                 <div class="row mb-3 model_view_chk_date">
                                     <div class="col-md-6">
-                                        <b>Chk In Date</b>
+                                        <b>@lang('dashboard.check_in_date') :</b>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control form-control-sm daterange_single" id="view_chk_in_date" placeholder="Chk In Date" disabled>
+                                            <input type="text" class="form-control form-control-sm daterange_single" id="view_chk_in_date" placeholder="@lang('dashboard.check_in_date')" disabled>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>                                
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <b>Chk Out Date</b>
+                                        <b>@lang('dashboard.check_out_date') :</b>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control form-control-sm daterange_single" id="view_chk_out_date" placeholder="Chk Out Date" disabled>
+                                            <input type="text" class="form-control form-control-sm daterange_single" id="view_chk_out_date" placeholder="@lang('dashboard.check_out_date')" disabled>
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>                                
@@ -287,16 +287,16 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <b>Found By</b>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Found By" id="view_found_by" disabled>
+                                        <b>@lang('dashboard.found_by') :</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.found_by')" id="view_found_by" disabled>
                                     </div>
                                     <div class="col-md-4">
-                                        <b>Locate Track</b>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Locate Track" id="view_locate_track" disabled>
+                                        <b>@lang('dashboard.locate_track') :</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.locate_track')" id="view_locate_track" disabled>
                                     </div>
                                     <div class="col-md-4">
-                                        <b>Record By</b>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Record By" id="view_record_by" disabled>
+                                        <b>@lang('dashboard.record_by') :</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.record_by')" id="view_record_by" disabled>
                                     </div>
                                 </div>
                                 </div>
@@ -313,7 +313,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-warning">
-                        <h5 class="modal-title"><i class="fas fa-edit"></i> แก้ไขข้อมูล</h5>
+                        <h5 class="modal-title"><i class="fas fa-edit"></i> @lang('dashboard.edit_data')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -323,7 +323,7 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <b>รูปภาพรายการ :</b>
+                                        <b>@lang('dashboard.picture_list') :</b>
                                         <div class="edit_img_div"></div>
                                         <div class="file_hide_edit">
                                             <input type="file" id="file_edit_1" accept="image/*" onchange="file_edit_select(1,100)">
@@ -333,9 +333,9 @@
                                         <hr>
                                         <b>Item ID :</b>  
                                         <input class="form-control form-control-sm mb-3" type="text" id="edit_item_id" placeholder="Item ID" disabled>    
-                                        <b>Item Type :</b>    
+                                        <b>@lang('dashboard.item_type') :</b>    
                                         <select class="custom-select custom-select-sm" id="edit_item_type">
-                                            <option value="off">เลือก ประเภทรายการ</option>
+                                            <option value="off">@lang('dashboard.select_item_type')</option>
                                         @foreach ($type as $type_row)
                                             <option value="{{ $type_row->type_name }}">{{ $type_row->type_name }}</option>    
                                         @endforeach
@@ -348,25 +348,25 @@
                                 <div class="card-body">
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <b>Locate Found :</b>  
-                                        <input class="form-control form-control-sm" type="text" id="edit_locate_found" placeholder="Locate Found">
+                                        <b>@lang('dashboard.locate_found') :</b>  
+                                        <input class="form-control form-control-sm" type="text" id="edit_locate_found" placeholder="@lang('dashboard.locate_found')">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <b>Item Detail :</b>  
-                                        <input class="form-control form-control-sm" type="text" id="edit_item_detail" placeholder="Item Detail">
+                                        <b>@lang('dashboard.item_detail') :</b>  
+                                        <input class="form-control form-control-sm" type="text" id="edit_item_detail" placeholder="@lang('dashboard.item_detail')">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <b>Guest Name</b>
-                                        <input class="form-control form-control-sm" type="text" id="edit_guest_name" placeholder="Guest Name" onkeyup="date_guest_select_edit_check(this)">
+                                        <b>@lang('dashboard.guest_name')</b>
+                                        <input class="form-control form-control-sm" type="text" id="edit_guest_name" placeholder="@lang('dashboard.guest_name')" onkeyup="date_guest_select_edit_check(this)">
                                     </div>
                                     <div class="col-md-6">
-                                        <b>Date Found</b>
+                                        <b>@lang('dashboard.date_found')</b>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control form-control-sm daterange_single" id="edit_date_found" placeholder="Date Found">
+                                            <input type="text" class="form-control form-control-sm daterange_single" id="edit_date_found" placeholder="@lang('dashboard.date_found')">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>                                
@@ -375,18 +375,18 @@
                                 </div>
                                 <div class="row mb-3" id="date_guest_select_edit">
                                     <div class="col-md-6">
-                                        <b>Chk In Date</b>
+                                        <b>@lang('dashboard.check_in_date')</b>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control form-control-sm daterange_single" id="edit_chk_in_date" placeholder="Chk In Date">
+                                            <input type="text" class="form-control form-control-sm daterange_single" id="edit_chk_in_date" placeholder="@lang('dashboard.check_in_date')">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>                                
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <b>Chk Out Date</b>
+                                        <b>@lang('dashboard.check_out_date')</b>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control form-control-sm daterange_single" id="edit_chk_out_date" placeholder="Chk Out Date">
+                                            <input type="text" class="form-control form-control-sm daterange_single" id="edit_chk_out_date" placeholder="@lang('dashboard.check_out_date')">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                             </div>                                
@@ -395,16 +395,16 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <b>Found By</b>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Found By" id="edit_found_by">
+                                        <b>@lang('dashboard.found_by')</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.found_by')" id="edit_found_by">
                                     </div>
                                     <div class="col-md-4">
-                                        <b>Locate Track</b>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Locate Track" id="edit_locate_track">
+                                        <b>@lang('dashboard.locate_track')</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.locate_track')" id="edit_locate_track">
                                     </div>
                                     <div class="col-md-4">
-                                        <b>Record By</b>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Record By" id="edit_record_by" disabled>
+                                        <b>@lang('dashboard.record_by')</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.record_by')" id="edit_record_by" disabled>
                                     </div>
                                 </div>
                                 </div>
@@ -414,10 +414,10 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn btn-sm btn-block btn-primary" onclick="Save_model_edit(this);"><i class="fas fa-save"></i> บันทึก แก้ไขข้อมูล</button>
+                                <button class="btn btn-sm btn-block btn-primary" onclick="Save_model_edit(this);"><i class="fas fa-save"></i> @lang('dashboard.save_edit_data')</button>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ปิด</button>
+                                <button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> @lang('dashboard.close')</button>
                             </div>
                         </div>
                     </div>
@@ -428,7 +428,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-dark">
-                        <h5 class="modal-title"><i class="fas fa-print"></i> ปริ้นข้อมูล</h5>
+                        <h5 class="modal-title"><i class="fas fa-print"></i> @lang('dashboard.print_data')</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -437,35 +437,35 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <img class="mb-3" src="{{ url('img/web_setting/thezign.gif') }}" width="100" height="40">
-                                <p class="mt-2"><b>อนุญาติให้</b> ........................................ <b>หมายเลข</b> ............................ <b>ตำแหน่ง</b> ....................................</p>
+                                <p class="mt-2"><b>@lang('dashboard.allow_to')</b> ......................................................... <b>@lang('dashboard.number')</b> ............................ <b>@lang('dashboard.position')</b> ...............................................</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-sm table-bordered">
                                     <tr class="text-center">
-                                        <td colspan="3" class="bg-dark">ข้อมูลรายการ</td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td><b>Item ID : </b> <sapn id="print_itemid"></sapn></td>
-                                        <td><b>ประเภทรายการ : </b> <span id="print_item_type"></span></td>
-                                        <td><b>สถานที่พบ : </b> <span id="print_place_found"></span></td>
+                                        <td colspan="3" class="bg-dark">@lang('dashboard.item_data')</td>
                                     </tr>
                                     <tr class="text-left">
-                                        <td colspan="3"><b style="margin-left:5px;">รายละเอียดของรายการ : </b> <span id="print_item_detail"></span></td>
+                                        <td><b>Item ID : </b> <sapn id="print_itemid"></sapn></td>
+                                        <td><b>@lang('dashboard.item_type') : </b> <span id="print_item_type"></span></td>
+                                        <td><b>@lang('dashboard.locate_found') : </b> <span id="print_place_found"></span></td>
                                     </tr>
-                                    <tr id="print_tr_guest" class="text-center">
-                                        <td><b>ชื่อลูกค้า : </b> <sapn id="print_guest_name"></sapn></td>
-                                        <td><b>วันที่เช็คอิน : </b> <sapn id="print_check_in_date"></sapn></td>
-                                        <td><b>วันที่เช็คเอ้าท์ : </b> <sapn id="print_check_out_date"></sapn></td>
+                                    <tr class="text-left">
+                                        <td colspan="3"><b>@lang('dashboard.item_detail') : </b> <span id="print_item_detail"></span></td>
+                                    </tr>
+                                    <tr id="print_tr_guest" class="text-left">
+                                        <td><b>@lang('dashboard.guest_name') : </b> <sapn id="print_guest_name"></sapn></td>
+                                        <td><b>@lang('dashboard.check_in_date') : </b> <sapn id="print_check_in_date"></sapn></td>
+                                        <td><b>@lang('dashboard.check_out_date') : </b> <sapn id="print_check_out_date"></sapn></td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td><b>@lang('dashboard.date_found') : </b> <sapn id="print_date_found"></sapn></td>
+                                        <td><b>@lang('dashboard.found_by') : </b> <sapn id="print_found_by"></sapn></td>
+                                        <td><b>@lang('dashboard.locate_track') : </b> <sapn id="print_locate_track"></sapn></td>
                                     </tr>
                                     <tr class="text-center">
-                                        <td><b>วันที่พบ : </b> <sapn id="print_date_found"></sapn></td>
-                                        <td><b>ผู้พบ : </b> <sapn id="print_found_by"></sapn></td>
-                                        <td><b>แผนก : </b> <sapn id="print_locate_track"></sapn></td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td colspan="3" class="bg-dark">รูปภาพรายการ</td>
+                                        <td colspan="3" class="bg-dark">@lang('dashboard.picture_list')</td>
                                     </tr>
                                     <tr>
                                         <td align="center" id="print_td_img_1"></td>
@@ -475,13 +475,13 @@
                                 </table>
                                 <table class="table table-sm table-bordered">
                                     <tr class="text-center">
-                                        <td colspan="4" class="bg-dark">ลงชื่อลายเซ็น</td>
+                                        <td colspan="4" class="bg-dark">@lang('dashboard.sign_the_signature')</td>
                                     </tr>
-                                    <tr class="text-center">
-                                        <td>พนักงาน ....................</td>
-                                        <td>หัวหน้าแผนก .....................</td>
-                                        <td>ฝ่ายบุคคล ....................</td>
-                                        <td>รปภ ....................</td>
+                                    <tr class="text-left">
+                                        <td>@lang('dashboard.staff') ..........................</td>
+                                        <td>@lang('dashboard.head_of_department') ..........................</td>
+                                        <td>@lang('dashboard.personnel') .........................</td>
+                                        <td>@lang('dashboard.security') ........................</td>
                                     </tr>
                                 </table>
                             </div>
@@ -489,8 +489,8 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <button class="btn btn-sm btn-primary" onclick="Open_print(this);" id="submit_print"><i class="fas fa-print"></i> ปริ้นข้อมูล</button>
-                                <button class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>
+                                <button class="btn btn-sm btn-primary" onclick="Open_print(this);" id="submit_print"><i class="fas fa-print"></i> @lang('dashboard.print_data')</button>
+                                <button class="btn btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> @lang('dashboard.canceled')</button>
                             </div>
                         </div>
                     </div>
@@ -501,4 +501,5 @@
         <!-- All Js -->
         <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
         <script type="text/javascript" src="{{ url('js/dashboard.js') }}"></script>
+        <script type="text/javascript" src="{{ url('js/lang.js') }}"></script>
 </html>

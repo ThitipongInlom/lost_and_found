@@ -1,0 +1,13 @@
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    padding-top: 3px !important;
+    padding-left: 8px !important;
+    padding-right: 30px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.select2-selection {
+    background-color: #fff !important;
+}

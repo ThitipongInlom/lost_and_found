@@ -114,7 +114,12 @@ var login = function login() {
             }
         );
     } else {
-        Toastr["error"]("กรุณากรอกข้อมูลให้ครบ ทุกช่อง");
+        var lang = $('html').attr('lang');
+        if (lang == 'th') {
+            Toastr["error"]("กรุณากรอกข้อมูลให้ครบ ทุกช่อง");
+        } else if (lang == 'en') {
+            Toastr["error"]("Please fill out all fields.");
+        }
         loading.remove();
     }
 }
@@ -218,7 +223,12 @@ var register = function register() {
             }
         );
     } else {
-        Toastr["error"]("กรุณากรอกข้อมูลให้ครบ ทุกช่อง");
+        var lang = $('html').attr('lang');
+        if (lang == 'th') {
+            Toastr["error"]("กรุณากรอกข้อมูลให้ครบ ทุกช่อง");
+        } else if (lang == 'en') {
+            Toastr["error"]("Please fill out all fields.");
+        }
         loading.remove();
     }
 }

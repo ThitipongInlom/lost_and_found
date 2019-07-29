@@ -9,6 +9,8 @@ Route::get('/login', 'systemlogin@login_page')->name('login');
 Route::get('/register', 'systemlogin@register_page')->name('register');
 // Logout
 Route::get('/logout', 'systemlogin@logout');
+// Switch Lang
+Route::get('/switch_lang', 'systemlogin@switch_lang');
 // API ต่างๆ
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('/get_type', 'dashboard@get_type');

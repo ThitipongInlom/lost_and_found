@@ -1,11 +1,16 @@
 // Variables
 @import 'variables';
+@import 'lang';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 // Adminlte
 @import '~admin-lte/dist/css/adminlte.css';
+
+// select2 
+@import '~select2/dist/css/select2.css';
+@import '~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css';
 
 // FaFaIcon
 @import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
@@ -45,7 +50,3 @@
     max-width: inherit !important;
     max-height: inherit !important;
 }
-
-// select2 
-@import '~select2/dist/css/select2.css';
-@import '~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css';

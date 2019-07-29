@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Model\User as User;
+use Session;
 
 class systemlogin extends Controller
 {
@@ -27,10 +28,10 @@ class systemlogin extends Controller
             $User->save();
             
             // Success Login สำเร็จ
-            return response()->json(['status' => 'success','error_text' => 'เข้าสู่ระบบสำเร็จ กรุณารอซักครู่','path' => $request->root()],200);
+            return response()->json(['status' => 'success','error_text' =>  trans('login.login_success') ,'path' => $request->root()],200);
         }else{
             // Error Login ไม่สำเร็จ
-            return response()->json(['status' => 'error','error_text' => 'ชื่อผู้ใช้งาน และ รหัสผ่าน ไม่ถูกต้อง'],200);
+            return response()->json(['status' => 'error','error_text' =>  trans('login.login_error') ],200);
         }
     }
 
@@ -66,6 +67,12 @@ class systemlogin extends Controller
     {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function switch_lang(Request $request)
+    {
+        $lang = $request->get('lang');
+        Session::put('locale', $lang);
     }
     
 }
