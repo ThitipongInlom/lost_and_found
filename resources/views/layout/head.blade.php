@@ -34,11 +34,13 @@
                     <b><i class="fas fa-cogs"></i> @lang('login.setting')</b>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#"><i class="fas fa-user-cog"></i> @lang('login.manage_users')</a>
-                    <a class="dropdown-item" href="#"><i class="fas fa-briefcase"></i> @lang('login.manage_type')</a>
+                    <a class="dropdown-item" href="{{ url('/setting_user') }}"><i class="fas fa-user-cog"></i> @lang('login.manage_users')</a>
+                    <a class="dropdown-item" href="{{ url('/setting_type') }}"><i class="fas fa-briefcase"></i> @lang('login.manage_type')</a>
+                <!--
                 <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#"><i class="fas fa-sliders-h"></i> @lang('login.setting_system')</a>
                  </div>
+                -->
             </li>
             @endif
             <li class="nav-item">

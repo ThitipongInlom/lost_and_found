@@ -6,6 +6,7 @@ return [
     'list_all_data' => 'List of all data',
     'list_received' => 'List of guest received',
     'list_not_received' => 'List of guest not received',
+    'list_not_wait' => 'List of wait',
     'type' => 'Type',
     'detail' => 'Detail',
     'location' => 'Location',

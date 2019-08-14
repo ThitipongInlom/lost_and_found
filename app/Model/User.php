@@ -32,6 +32,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public $timestamps = true;
 
      /**
      * ชื่อ ตาราง 

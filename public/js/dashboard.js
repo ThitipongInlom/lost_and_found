@@ -17,12 +17,14 @@ var table_all = $('#table_all').DataTable({
         }
     },
     "columns": [{
-        "data": 'list_id',
-        "name": 'list_id',
         "width": '5%', 
         "render": function (data, type, full, meta) {
             return meta.row+1;
         }
+    },{
+        "data": 'list_id',
+        "name": 'list_id',
+        "width": '5%',
     },{
         "data": 'item_type',
         "name": 'item_type',
@@ -30,7 +32,7 @@ var table_all = $('#table_all').DataTable({
     },{
         "data": 'item_detail',
         "name": 'item_detail',
-        "width": '35%',
+        "width": '30%',
     },{
         "data": 'place_found',
         "name": 'place_found',
@@ -50,11 +52,11 @@ var table_all = $('#table_all').DataTable({
     }],
     "columnDefs": [{
             "className": 'text-left',
-            "targets": [1, 6]
+            "targets": [3, 4]
         },
         {
             "className": 'text-center',
-            "targets": [0, 4, 5]
+            "targets": [0, 1, 5, 6]
         },{
             "className": 'text-right',
             "targets": []
@@ -83,44 +85,47 @@ var table_all = $('#table_all').DataTable({
     },
 });
 
-$('.daterange_single').daterangepicker({
-    singleDatePicker: true,
-    opens: 'right',
-    drops: 'up',
-    locale: {
-        format: 'DD/MM/YYYY',
-        applyLabel: "ยืนยัน",
-        cancelLabel: "ยกเลิก",
-        fromLabel: "จาก",
-        toLabel: "ไปยัง",
-        customRangeLabel: "กำหนดเอง",
-        daysOfWeek: [
-            "อา.",
-            "จ.",
-            "อ.",
-            "พ.",
-            "พฤ.",
-            "ศ.",
-            "ส."
-        ],
-        monthNames: [
-            "มกราคม",
-            "กุมภาพันธ์",
-            "มีนาคม",
-            "เมษายน",
-            "พฤษภาคม",
-            "มิถุนายน",
-            "กรกฎาคม",
-            "สิงหาคม",
-            "กันยายน",
-            "ตุลาคม",
-            "พฤศจิกายน",
-            "ธันวาคม"
-        ],
-    }
-});
+var Set_daterange_single = function Set_daterange_single() {
+    $('.daterange_single').daterangepicker({
+        singleDatePicker: true,
+        opens: 'right',
+        drops: 'up',
+        locale: {
+            format: 'DD/MM/YYYY',
+            applyLabel: "ยืนยัน",
+            cancelLabel: "ยกเลิก",
+            fromLabel: "จาก",
+            toLabel: "ไปยัง",
+            customRangeLabel: "กำหนดเอง",
+            daysOfWeek: [
+                "อา.",
+                "จ.",
+                "อ.",
+                "พ.",
+                "พฤ.",
+                "ศ.",
+                "ส."
+            ],
+            monthNames: [
+                "มกราคม",
+                "กุมภาพันธ์",
+                "มีนาคม",
+                "เมษายน",
+                "พฤษภาคม",
+                "มิถุนายน",
+                "กรกฎาคม",
+                "สิงหาคม",
+                "กันยายน",
+                "ตุลาคม",
+                "พฤศจิกายน",
+                "ธันวาคม"
+            ],
+        }
+    });
+}
 
 $(function () {
+    Set_daterange_single();
     $("#date_guest_select").hide();
     $(".file_hide").hide();
     $(".file_hide_edit").hide();
@@ -308,15 +313,15 @@ var Open_model_info = function Open_model_info(e) {
             $(".carousel-control-next").remove();
             // Add Img
             if (res.data.img_1 != null) {
-                $(".carousel-inner").append('<div class="carousel-item active" id="div-inner-1"><img src="" id="carousel-inner-1" class="d-block rounded" width="200" height="150"></div>');
+                $(".carousel-inner").append('<div class="carousel-item active" id="div-inner-1" name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-1" class="d-block rounded" width="200" height="150"></div>');
                 $("#carousel-inner-1").attr('src', 'img/main/' + res.data.img_1);
             }
             if (res.data.img_2 != null) {
-                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-2"><img src="" id="carousel-inner-2" class="d-block rounded" width="200" height="150"></div>');
+                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-2" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-2" class="d-block rounded" width="200" height="150"></div>');
                 $("#carousel-inner-2").attr('src', 'img/main/' + res.data.img_2);
             }
             if (res.data.img_3 != null) {
-                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-3"><img src="" id="carousel-inner-3" class="d-block rounded" width="200" height="150"></div>');
+                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-3" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-3" class="d-block rounded" width="200" height="150"></div>');
                 $("#carousel-inner-3").attr('src', 'img/main/' + res.data.img_3);
             }
             // Add Next IMG
@@ -693,7 +698,15 @@ var Open_model_print = function Open_model_print(e) {
                 $("#print_check_in_date").html(moment(res.data.check_in_date).format('DD/MM/YYYY'));
                 $("#print_check_out_date").html(moment(res.data.check_out_date).format('DD/MM/YYYY'));
             }
-
+            if (res.data.name_item_out != '') {
+                $("#name_item_out").val(res.data.name_item_out);
+            }
+            if (res.data.dep_item_out != '') {
+                $("#dep_item_out").val(res.data.dep_item_out);
+            }
+            if (res.data.type_item_out != null) {
+                $("#print_type_send").val(res.data.type_item_out);
+            }
             $("#print_img_1").remove();
             $("#print_img_2").remove();
             $("#print_img_3").remove();
@@ -715,9 +728,53 @@ var Open_model_print = function Open_model_print(e) {
 }
 
 var Open_print = function Open_print(e) {
+    var Toastr = Set_Toastr();
     var Sned_id = $(e).attr('item_id');
-    var New_winwodws;
-    New_winwodws = window.open("print/" + Sned_id, "", "width=800, height=500");
+    var type_send = $("#print_type_send").val();
+    var name_item_out = $("#name_item_out").val();
+    var dep_item_out = $("#dep_item_out").val();
+    if (name_item_out == '') {
+        Toastr["error"]('กรุณากรอกผู้นำสินค้าออก');
+    }else if (dep_item_out == '') {
+        Toastr["error"]('กรุณากรอกแผนก');
+    }else if (type_send == '0'){
+        Toastr["error"]('กรุณาเลือก ประเภท');
+    }else{
+        var New_winwodws;
+        $('#model_crate_print').modal('hide');
+        New_winwodws = window.open("print/" + Sned_id + "?type_send=" + type_send + "&name_item_out=" + name_item_out + "&dep_item_out=" + dep_item_out, "", "width=800, height=500");
+        setTimeout(function() {
+         var table = $('#table_all').DataTable();
+         table.draw();
+        }, 500);
+    }
+}
+
+var Open_model_return = function Open_model_return(e) {
+    $("#model_return_body").html('');
+    var Toastr = Set_Toastr();
+    var list_item_id = $(e).attr('list_item_id');
+    $('#model_return').modal('show');
+    var Data = new FormData();
+    Data.append('list_item_id', list_item_id);
+    // Ajax
+    $.ajax({
+        url: 'api/v1/return_item',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            $("#model_return_body").html(res.data);
+            Set_daterange_single();
+            console.log(res);
+        }
+    });
 }
 
 var Set_add_model_null = function Set_add_model_null() {
@@ -729,7 +786,7 @@ var Set_add_model_null = function Set_add_model_null() {
     $("#check_out_date").val('');
     $("#found_by").val('').removeClass('is-valid').removeClass('is-invalid');
     $("#locate_track").val('').removeClass('is-valid').removeClass('is-invalid');
-    $("#record_by").val('').removeClass('is-valid').removeClass('is-invalid');
+    $("#record_by").removeClass('is-valid').removeClass('is-invalid');
     $("#file_1").val('');
     $("#file_2").val('');
     $("#file_3").val('');
@@ -826,7 +883,7 @@ var Check_null_input = function Check_null_input () {
     return result;
 }
 
-var Set_Toastr = function name() {
+var Set_Toastr = function Set_Toastr() {
     // Toastr Options
     Toastr.options = {
         "closeButton": true,

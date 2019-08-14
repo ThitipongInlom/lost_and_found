@@ -28,6 +28,10 @@ class list_item extends Model
         'img_2',
         'img_3',
         'return_item',
+        'name_item_out',
+        'dep_item_out',
+        'type_item_out',
+        'date_item_out'
     ];
 
     public $timestamps = false;

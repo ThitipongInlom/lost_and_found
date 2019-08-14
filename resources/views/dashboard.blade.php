@@ -37,19 +37,26 @@
             <div class="col-md-12 mt-3">
                 <div class="card card-success" style="margin-right: 20px;margin-left: 20px;">
                     <div class="card-body" style="background-color: #b6bcc14d !important;">
-                        <div class="text-right mb-2">
-                            <select class="custom-select custom-select-sm col-2" id="type_select_table" onchange="load_table_on_select();">
-                                <option value="return_all" selected>@lang('dashboard.list_all_data')</option>
-                                <option value="return_yes">@lang('dashboard.list_received')</option>
-                                <option value="return_no">@lang('dashboard.list_not_received')</option>
-                            </select>
-                            <button class="btn btn-sm btn-success" onclick="Open_model_add();"><i class="fas fa-plus"></i> @lang('dashboard.add_data')</button>
+                        <div class="clearfix">
+                            <div class="float-left mb-2">
+                                <h3>แดชบอร์ด</h3>
+                            </div>
+                            <div class="float-right text-right mb-2">
+                                <select class="custom-select custom-select-sm col-8" id="type_select_table" onchange="load_table_on_select();">
+                                    <option value="return_all" selected>@lang('dashboard.list_all_data')</option>
+                                    <option value="return_yes">@lang('dashboard.list_received')</option>
+                                    <option value="return_no">@lang('dashboard.list_not_received')</option>
+                                    <option value="return_wait">@lang('dashboard.list_not_wait')</option>
+                                </select>
+                                <button class="btn btn-sm btn-success" onclick="Open_model_add();"><i class="fas fa-plus"></i> @lang('dashboard.add_data')</button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                         <table class="table table-sm dt-responsive nowrap row-border table-bordered table-hover" cellspacing="0" cellpadding="0" id="table_all" width="100%">
                             <thead>
                                 <tr align="center" class="bg-primary">
                                     <th>#</th>
+                                    <th>Ref</th>
                                     <th>@lang('dashboard.type')</th>
                                     <th>@lang('dashboard.detail')</th>
                                     <th>@lang('dashboard.location')</th>
@@ -335,7 +342,7 @@
                                         <input class="form-control form-control-sm mb-3" type="text" id="edit_item_id" placeholder="Item ID" disabled>    
                                         <b>@lang('dashboard.item_type') :</b>    
                                         <select class="custom-select custom-select-sm" id="edit_item_type">
-                                            <option value="off">@lang('dashboard.select_item_type')</option>
+                                            <option disabled value="off">@lang('dashboard.select_item_type')</option>
                                         @foreach ($type as $type_row)
                                             <option value="{{ $type_row->type_name }}">{{ $type_row->type_name }}</option>    
                                         @endforeach
@@ -437,7 +444,6 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <img class="mb-3" src="{{ url('img/web_setting/thezign.gif') }}" width="100" height="40">
-                                <p class="mt-2"><b>@lang('dashboard.allow_to')</b> ......................................................... <b>@lang('dashboard.number')</b> ............................ <b>@lang('dashboard.position')</b> ...............................................</p>
                             </div>
                         </div>
                         <div class="row">
@@ -478,10 +484,34 @@
                                         <td colspan="4" class="bg-dark">@lang('dashboard.sign_the_signature')</td>
                                     </tr>
                                     <tr class="text-left">
-                                        <td>@lang('dashboard.staff') ..........................</td>
-                                        <td>@lang('dashboard.head_of_department') ..........................</td>
-                                        <td>@lang('dashboard.personnel') .........................</td>
-                                        <td>@lang('dashboard.security') ........................</td>
+                                        <td width="60%">
+                                            <b>ชื่อผู้นำสินค้าออก :</b> 
+                                            <input class="form-control form-control-sm" id="name_item_out" placeholder="ชื่อผู้นำสินค้าออก">
+                                        </td>
+                                        <td width="20%">
+                                            <b>แผนก :</b> 
+                                            <input class="form-control form-control-sm" id="dep_item_out" placeholder="แผนก">
+                                        </td>
+                                        <td width="20%">
+                                            <b>วันที่นำสินค้าออก :</b> 
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control form-control-sm daterange_single" id="date_item_out" placeholder="@lang('dashboard.date_found')" disabled>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                </div>                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="4">
+                                            <b>เลือกประเภทการนำสินค้าออก :</b>
+                                            <select class="custom-select custom-select-sm" id="print_type_send">
+                                                <option value="0" selected>เลือกประเภทการนำสินค้าออก</option>
+                                                <option value="1">มารับเอง</option>
+                                                <option value="2">ส่งของคืนทางไปรษณีย์</option>
+                                                <option value="3">อื่นๆ</option>
+                                            </select>
+                                        </td>                                       
                                     </tr>
                                 </table>
                             </div>
@@ -494,6 +524,31 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="model_return" tabindex="-1" role="dialog" aria-labelledby="returnLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="returnLabel">คืนสินค้าแล้ว </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <div id="model_return_body"></div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-sm btn-block btn-primary"><i class="fas fa-save"></i> ยืนยัน</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> @lang('dashboard.close')</button>
+                    </div>
+                </div>
+                </div>
                 </div>
             </div>
         </div>

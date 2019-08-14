@@ -209,6 +209,8 @@ class dashboard extends Controller
             $list_item = list_item::get();
         }elseif ($request->get('type_select_table') == 'return_yes') {
             $list_item = list_item::where('return_item', 'turn')->get();
+        }elseif ($request->get('type_select_table') == 'return_wait') {
+            $list_item = list_item::where('return_item', 'wait')->get();
         }elseif ($request->get('type_select_table') == 'return_no') {
             $list_item = list_item::whereNull('return_item')->get();
         }
@@ -220,7 +222,10 @@ class dashboard extends Controller
                     $button .= '<button type="button" class="btn btn-sm btn-warning" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.edit').'" onclick="Open_model_edit(this);"><i class="fas fa-edit"></i> '.trans('dashboard.edit').'</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-danger" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.del').'" onclick="Open_model_delete(this);"><i class="fas fa-trash"></i> '.trans('dashboard.del').'</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.print').'" onclick="Open_model_print(this);"><i class="fas fa-print"></i> '.trans('dashboard.print').'</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-success" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.turn').'"><i class="fas fa-undo-alt"></i> '.trans('dashboard.turn').'</button> ';
+                }elseif($list_item->return_item == 'wait') {
+                    $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.view').'" onclick="Open_model_info(this);"><i class="fas fa-info"></i> '.trans('dashboard.view').'</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.print').'" onclick="Open_model_print(this);"><i class="fas fa-print"></i> '.trans('dashboard.print').'</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-success" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.turn').'" onclick="Open_model_return(this);"><i class="fas fa-undo-alt"></i> '.trans('dashboard.turn').'</button> ';
                 }else{
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.view').'" onclick="Open_model_info(this);"><i class="fas fa-info"></i> '.trans('dashboard.view').'</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.print').'" onclick="Open_model_print(this);"><i class="fas fa-print"></i> '.trans('dashboard.print').'</button> ';
@@ -235,6 +240,8 @@ class dashboard extends Controller
             ->editColumn('return_item', function($list_item) {
                 if($list_item->return_item == '') {
                     $new_return_item = '<h5><span class="badge badge-secondary">N</span></h5>';
+                }elseif($list_item->return_item == 'wait') {
+                    $new_return_item = '<h5><span class="badge badge-warning">W</span></h5>';
                 }else{
                     $new_return_item = '<h5><span class="badge badge-success">Y</span></h5>';
                 }
@@ -247,7 +254,40 @@ class dashboard extends Controller
     public function print_item(Request $request,$item_id)
     {
         $query = list_item::where('list_id', $item_id)->get();
+        $type_sned = $request->get('type_send');
+        $name_item_out = $request->get('name_item_out');
+        $dep_item_out = $request->get('dep_item_out');
+
+        $list_item = list_item::find($item_id);
+        $list_item->return_item = 'wait';
+        $list_item->name_item_out = $name_item_out;
+        $list_item->dep_item_out = $dep_item_out;
+        $list_item->type_item_out = $type_sned;
+        $list_item->date_item_out = now();
+        $list_item->save();
+
         return view('print',[
-                    'item' => $query]);
+                    'item' => $query,
+                    'type_sned' => $type_sned]);
+    }
+
+    public function return_item(Request $request)
+    {
+        $query = list_item::where('list_id', $request->post('list_item_id'))->get();
+        foreach ($query as $key => $row) {
+            $data_return = "";
+            // มารับเอง
+            if($row->type_item_out == '1') {
+                $data_return .= '<b>ชื่อผู้ที่มารับของที่ลืม :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_1_name" placeholder="ชื่อผู้ที่มารับของที่ลืม">';
+                $data_return .= '<b>ที่อยู่ :</b><textarea class="form-control mb-2" id="return_type_1_address" rows="2" placeholder="ที่อยู่"></textarea>';
+                $data_return .= '<b>วันที่มารับ :</b><input class="form-control form-control-sm col-4 mb-2 daterange_single" type="text" id="return_type_1_date" placeholder="วันที่มารับ">';
+                $data_return .= '<b>เบอร์โทรติดต่อกลับ :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_1_phone" placeholder="เบอร์โทรติดต่อกลับ">';
+            }elseif ($row->type_item_out == '2') {
+                echo 'ส่งของคืนทางไปรษณีย์';
+            }elseif ($row->type_item_out == '3') {
+                echo 'อื่นๆ';
+            }
+        }
+        return response()->json(['status' => 'success', 'data' => $data_return],200);
     }
 }
