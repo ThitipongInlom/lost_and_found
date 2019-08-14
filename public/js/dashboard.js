@@ -270,6 +270,12 @@ var Open_model_info = function Open_model_info(e) {
     $("#head_model_info").removeClass('bg-danger').addClass('bg-info');
     $("#head_model_tital").html('<i class="fas fa-info"></i> ' + view);
     $("#footer_button_info").html('<div class="col-md-12"><button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ' + close + '</button></div>');
+    // Display Model 
+    $("#info_wait_display").hide();
+    $("#info_trun_display").hide();
+    $("#info_turn_1_display").hide();
+    $("#info_turn_2_display").hide();
+    $("#info_turn_3_display").hide();
     // Data
     var Data = new FormData();
     Data.append('list_item_id', list_item_id);
@@ -328,6 +334,34 @@ var Open_model_info = function Open_model_info(e) {
             if (res.data.img_2 != null || res.data.img_3 != null) {
                 $(".carousel-control-prev-view").prepend('<a class="carousel-control-prev" href="#info_model_view" role="button" data-slide="prev"><span class="carousel-control-prev-icon" style="background-color: #000000;" aria-hidden="true"></span><span class="sr-only">' + turn_back + '</span></a>');
                 $(".carousel-control-next-view").prepend('<a class="carousel-control-next" href="#info_model_view" role="button" data-slide="next"><span class="carousel-control-next-icon" style="background-color: #000000;" aria-hidden="true"></span><span class="sr-only">' + next + '</span></a>');
+            }
+            // info wait Display
+            if (res.data.return_item == 'wait' || res.data.return_item == 'turn') {
+                $("#info_wait_display").show();
+                $("#info_item_out").val(res.data.name_item_out);
+                $("#info_dep_item_out").val(res.data.dep_item_out);
+                $("#info_date_item_out").val(moment(res.data.date_item_out).format('DD/MM/YYYY'));
+                $("#info_print_type_send").val(res.data.type_item_out);
+            }
+            // info turn Display
+            if (res.data.return_item == 'turn') {
+                $("#info_trun_display").show();
+                if (res.data.type_item_out == '1') {
+                    $("#info_turn_1_display").show();
+                    $("#info_return_type_1_name").val(res.data.name_return_guest);
+                    $("#info_return_type_1_address").val(res.data.address_return_guest);
+                    $("#info_return_type_1_date").val(moment(res.data.date_return_guest).format('DD/MM/YYYY'));
+                    $("#info_return_type_1_phone").val(res.data.phone_return_guest);
+                } else if (res.data.type_item_out == '2') {
+                    $("#info_turn_2_display").show();
+                    $("#info_return_type_2_name").val(res.data.name_return_guest);
+                    $("#info_return_type_2_dep").val(res.data.dep_return_guest);
+                    $("#info_return_type_2_address").val(res.data.address_return_guest);
+                    $("#info_return_type_2_ems").val(res.data.ems_return_guest);
+                } else if (res.data.type_item_out == '3') {
+                    $("#info_turn_3_display").show();
+                    $("#info_return_type_3_other").val(res.data.other_return_guest);
+                }
             }
         }
     });
@@ -752,6 +786,7 @@ var Open_print = function Open_print(e) {
 
 var Open_model_return = function Open_model_return(e) {
     $("#model_return_body").html('');
+    $("#button_save_return").html('');
     var Toastr = Set_Toastr();
     var list_item_id = $(e).attr('list_item_id');
     $('#model_return').modal('show');
@@ -770,11 +805,197 @@ var Open_model_return = function Open_model_return(e) {
         processData: false,
         data: Data,
         success: function (res) {
+            console.log(res.data);
             $("#model_return_body").html(res.data);
+            $("#button_save_return").html(res.button);
             Set_daterange_single();
-            console.log(res);
         }
     });
+}
+
+var Save_model_return = function Save_model_return(e) {
+    var type_item_out = $(e).attr('type_item_out');
+    var list_id = $(e).attr('list_id');
+    var Data = new FormData();
+    if (type_item_out == '1') {
+        Data.append('return_type_1_name', $("#return_type_1_name").val());
+        Data.append('return_type_1_address', $("#return_type_1_address").val());
+        Data.append('return_type_1_date', $("#return_type_1_date").val());
+        Data.append('return_type_1_phone', $("#return_type_1_phone").val());
+        Data.append('type_item_out', type_item_out);
+        Data.append('list_id', list_id);
+        var auth = Set_check_return_data(type_item_out);
+        if (auth == true) {
+            Sned_save_model_return(Data);
+        }
+    } else if (type_item_out == '2') {
+        Data.append('return_type_2_name', $("#return_type_2_name").val());
+        Data.append('return_type_2_dep', $("#return_type_2_dep").val());
+        Data.append('return_type_2_address', $("#return_type_2_address").val());
+        Data.append('return_type_2_ems', $("#return_type_2_ems").val());
+        Data.append('type_item_out', type_item_out);
+        Data.append('list_id', list_id);
+        var auth = Set_check_return_data(type_item_out);
+        if (auth == true) {
+            Sned_save_model_return(Data);
+        }
+    } else if (type_item_out == '3') {
+        Data.append('return_type_3_other', $("#return_type_3_other").val());
+        Data.append('type_item_out', type_item_out);
+        Data.append('list_id', list_id);
+        var auth = Set_check_return_data(type_item_out);
+        if (auth == true) {
+            Sned_save_model_return(Data);
+        }
+    }
+}
+
+var Sned_save_model_return = function Sned_save_model_return(Data) {
+    // Ajax
+    $.ajax({
+        url: 'api/v1/save_retuen',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'text',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            Set_return_model_null();
+            $('#model_return').modal('hide');
+            var table = $('#table_all').DataTable();
+            table.draw();
+        }
+    });
+}
+
+var Set_check_return_data = function Set_check_return_data(type_item_out) {
+    if (type_item_out == '1') {
+        var return_type_1_name = function return_type_1_name() {
+            if ($("#return_type_1_name").val() == '') {
+                $("#return_type_1_name").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_1_name").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+        var return_type_1_address = function return_type_1_address() {
+            if ($("#return_type_1_address").val() == '') {
+                $("#return_type_1_address").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_1_address").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+        var return_type_1_date = function return_type_1_date() {
+            if ($("#return_type_1_date").val() == '') {
+                $("#return_type_1_date").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_1_date").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+        var return_type_1_phone = function return_type_1_phone() {
+            if ($("#return_type_1_phone").val() == '') {
+                $("#return_type_1_phone").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_1_phone").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+
+        var success_rows = 0;
+        var error_rows = 0;
+        var return_type_1_name = return_type_1_name() == true ? success_rows++ : error_rows++;
+        var return_type_1_address = return_type_1_address() == true ? success_rows++ : error_rows++;
+        var return_type_1_date = return_type_1_date() == true ? success_rows++ : error_rows++;
+        var return_type_1_phone = return_type_1_phone() == true ? success_rows++ : error_rows++;
+        var result = success_rows == 4 ? true : false;
+        return result;
+
+    } else if (type_item_out == '2') {
+        var return_type_2_name = function return_type_2_name() {
+            if ($("#return_type_2_name").val() == '') {
+                $("#return_type_2_name").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_2_name").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+        var return_type_2_dep = function return_type_2_dep() {
+            if ($("#return_type_2_dep").val() == '') {
+                $("#return_type_2_dep").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_2_dep").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+        var return_type_2_address = function return_type_2_address() {
+            if ($("#return_type_2_address").val() == '') {
+                $("#return_type_2_address").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_2_address").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+        var return_type_2_ems = function return_type_2_ems() {
+            if ($("#return_type_2_ems").val() == '') {
+                $("#return_type_2_ems").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_2_ems").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+
+        var success_rows = 0;
+        var error_rows = 0;
+        var return_type_2_name = return_type_2_name() == true ? success_rows++ : error_rows++;
+        var return_type_2_dep = return_type_2_dep() == true ? success_rows++ : error_rows++;
+        var return_type_2_address = return_type_2_address() == true ? success_rows++ : error_rows++;
+        var return_type_2_ems = return_type_2_ems() == true ? success_rows++ : error_rows++;
+        var result = success_rows == 4 ? true : false;
+        return result;
+
+    } else if (type_item_out == '3') {
+        var return_type_3_other = function return_type_3_other() {
+            if ($("#return_type_3_other").val() == '') {
+                $("#return_type_3_other").removeClass('is-valid').addClass('is-invalid');
+                return false;
+            } else {
+                $("#return_type_3_other").removeClass('is-invalid').addClass('is-valid');
+                return true;
+            }
+        }
+
+        var success_rows = 0;
+        var error_rows = 0;
+        var return_type_3_other = return_type_3_other() == true ? success_rows++ : error_rows++;
+        var result = success_rows == 1 ? true : false;
+        return result;
+    }
+}
+
+var Set_return_model_null = function Set_return_model_null() {
+    $("#return_type_1_name").val('').removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_1_address").val('').removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_1_date").removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_1_phone").removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_2_name").val('').removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_2_dep").val('').removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_2_address").removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_2_ems").removeClass('is-valid').removeClass('is-invalid');
+    $("#return_type_3_other").removeClass('is-valid').removeClass('is-invalid');
 }
 
 var Set_add_model_null = function Set_add_model_null() {

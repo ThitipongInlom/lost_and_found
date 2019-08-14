@@ -31,7 +31,14 @@ class list_item extends Model
         'name_item_out',
         'dep_item_out',
         'type_item_out',
-        'date_item_out'
+        'date_item_out',
+        'name_return_guest',
+        'address_return_guest',
+        'date_return_guest',
+        'phone_return_guest',
+        'dep_return_guest',
+        'ems_return_guest',
+        'other_return_guest'
     ];
 
     public $timestamps = false;

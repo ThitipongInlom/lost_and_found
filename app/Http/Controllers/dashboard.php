@@ -228,7 +228,6 @@ class dashboard extends Controller
                     $button .= '<button type="button" class="btn btn-sm btn-success" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.turn').'" onclick="Open_model_return(this);"><i class="fas fa-undo-alt"></i> '.trans('dashboard.turn').'</button> ';
                 }else{
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.view').'" onclick="Open_model_info(this);"><i class="fas fa-info"></i> '.trans('dashboard.view').'</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.print').'" onclick="Open_model_print(this);"><i class="fas fa-print"></i> '.trans('dashboard.print').'</button> ';
                 }
                 return $button;
             })
@@ -276,18 +275,58 @@ class dashboard extends Controller
         $query = list_item::where('list_id', $request->post('list_item_id'))->get();
         foreach ($query as $key => $row) {
             $data_return = "";
+            $button_save= "";
             // มารับเอง
             if($row->type_item_out == '1') {
+                $data_return .= '<div class="row>';
+                $data_return .= '<div class="col-md-12>';
                 $data_return .= '<b>ชื่อผู้ที่มารับของที่ลืม :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_1_name" placeholder="ชื่อผู้ที่มารับของที่ลืม">';
                 $data_return .= '<b>ที่อยู่ :</b><textarea class="form-control mb-2" id="return_type_1_address" rows="2" placeholder="ที่อยู่"></textarea>';
-                $data_return .= '<b>วันที่มารับ :</b><input class="form-control form-control-sm col-4 mb-2 daterange_single" type="text" id="return_type_1_date" placeholder="วันที่มารับ">';
+                $data_return .= '</div></div>';
+                $data_return .= '<div class="row"><div class="col-md-4">';
+                $data_return .= '<b>วันที่มารับ :</b><input class="form-control form-control-sm mb-2 daterange_single" type="text" id="return_type_1_date" placeholder="วันที่มารับ">';
+                $data_return .= '</div><div class="col-md-4">';
                 $data_return .= '<b>เบอร์โทรติดต่อกลับ :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_1_phone" placeholder="เบอร์โทรติดต่อกลับ">';
+                $data_return .= '</div></div>';
+                $button_save .= '<button class="btn btn-sm btn-block btn-primary" type_item_out="1" list_id="'.$row->list_id.'" onclick="Save_model_return(this);"><i class="fas fa-save"></i> ยืนยัน</button>';
             }elseif ($row->type_item_out == '2') {
-                echo 'ส่งของคืนทางไปรษณีย์';
+                $data_return .= '<b>ผู้นำส่งไปรษณีย์ :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_2_name" placeholder="ผู้นำส่งไปรษณีย์">';
+                $data_return .= '<b>แผนก :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_2_dep" placeholder="แผนก">';
+                $data_return .= '<b>ชื่อและที่อยู่ :</b><textarea class="form-control mb-2" id="return_type_2_address" rows="2" placeholder="ชื่อและที่อยู่"></textarea>';
+                $data_return .= '<b>หมายเลขพัสดุที่ส่ง :</b><input class="form-control form-control-sm mb-2" type="text" id="return_type_2_ems" placeholder="หมายเลขพัสดุที่ส่ง">';
+                $button_save .= '<button class="btn btn-sm btn-block btn-primary" type_item_out="2" list_id="'.$row->list_id.'" onclick="Save_model_return(this);"><i class="fas fa-save"></i> ยืนยัน</button>';
             }elseif ($row->type_item_out == '3') {
-                echo 'อื่นๆ';
+                $data_return .= '<b>อื่นๆ :</b><textarea class="form-control mb-2" id="return_type_3_other" rows="3" placeholder="อื่นๆ"></textarea>';
+                $button_save .= '<button class="btn btn-sm btn-block btn-primary" type_item_out="3" list_id="'.$row->list_id.'" onclick="Save_model_return(this);"><i class="fas fa-save"></i> ยืนยัน</button>';
             }
         }
-        return response()->json(['status' => 'success', 'data' => $data_return],200);
+        return response()->json(['status' => 'success', 'button' => $button_save, 'data' => $data_return],200);
+    }
+
+    public function Save_return_item(Request $request)
+    {
+        if($request->post('type_item_out') == '1') {
+            $list_item = list_item::find($request->post('list_id'));
+            $list_item->return_item = 'turn';
+            $list_item->name_return_guest = $request->post('return_type_1_name');
+            $list_item->address_return_guest = $request->post('return_type_1_address');
+            $list_item->date_return_guest = date('Y-m-d',strtotime(str_replace('/', '-', $request->post('return_type_1_date'))));
+            $list_item->phone_return_guest = $request->post('return_type_1_phone');
+            $list_item->save();
+        }elseif ($request->post('type_item_out') == '2') {
+            $list_item = list_item::find($request->post('list_id'));
+            $list_item->return_item = 'turn';
+            $list_item->name_return_guest = $request->post('return_type_2_name');
+            $list_item->dep_return_guest = $request->post('return_type_2_dep');
+            $list_item->address_return_guest = $request->post('return_type_2_dep');
+            $list_item->ems_return_guest = $request->post('return_type_2_ems');
+            $list_item->save();
+        }elseif ($request->post('type_item_out') == '3') {
+            $list_item = list_item::find($request->post('list_id'));
+            $list_item->return_item = 'turn';
+            $list_item->other_return_guest = $request->post('return_type_3_other');
+            $list_item->save();
+        }
+
     }
 }

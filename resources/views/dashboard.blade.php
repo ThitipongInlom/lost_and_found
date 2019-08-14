@@ -310,6 +310,102 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="info_wait_display">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <b>ชื่อผู้นำสินค้าออก :</b> 
+                                                    <input class="form-control form-control-sm" id="info_item_out" disabled placeholder="ชื่อผู้นำสินค้าออก">                                                
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <b>แผนก :</b> 
+                                                    <input class="form-control form-control-sm" id="info_dep_item_out" disabled placeholder="แผนก">        
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <b>วันที่นำสินค้าออก :</b> 
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control form-control-sm daterange_single" id="info_date_item_out" placeholder="@lang('dashboard.date_found')" disabled>
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                        </div>                                
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <b>เลือกประเภทการนำสินค้าออก :</b>
+                                                    <select class="custom-select custom-select-sm" disabled id="info_print_type_send">
+                                                        <option value="0" selected>เลือกประเภทการนำสินค้าออก</option>
+                                                        <option value="1">มารับเอง</option>
+                                                        <option value="2">ส่งของคืนทางไปรษณีย์</option>
+                                                        <option value="3">อื่นๆ</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                        
+                                </div>
+                            </div>
+                        </div>
+                        <div id="info_trun_display">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div id="info_turn_1_display">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <b>ชื่อผู้ที่มารับของที่ลืม :</b>
+                                                                <input class="form-control form-control-sm mb-2" type="text" id="info_return_type_1_name" disabled placeholder="ชื่อผู้ที่มารับของที่ลืม">
+                                                                <b>ที่อยู่ :</b>
+                                                                <textarea class="form-control mb-2" id="info_return_type_1_address" rows="2" disabled placeholder="ที่อยู่"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <b>วันที่มารับ :</b>
+                                                                <input class="form-control form-control-sm mb-2 daterange_single" type="text" disabled id="info_return_type_1_date" placeholder="วันที่มารับ">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <b>เบอร์โทรติดต่อกลับ :</b>
+                                                                <input class="form-control form-control-sm mb-2" type="text" id="info_return_type_1_phone" disabled placeholder="เบอร์โทรติดต่อกลับ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="info_turn_2_display">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <b>ผู้นำส่งไปรษณีย์ :</b>
+                                                                <input class="form-control form-control-sm mb-2" type="text" id="info_return_type_2_name" disabled placeholder="ผู้นำส่งไปรษณีย์">
+                                                                <b>แผนก :</b>
+                                                                <input class="form-control form-control-sm mb-2" type="text" id="info_return_type_2_dep" disabled placeholder="แผนก">
+                                                                <b>ชื่อและที่อยู่ :</b>
+                                                                <textarea class="form-control mb-2" id="info_return_type_2_address" rows="2" disabled placeholder="ชื่อและที่อยู่"></textarea>
+                                                                <b>หมายเลขพัสดุที่ส่ง :</b>
+                                                                <input class="form-control form-control-sm mb-2" type="text" id="info_return_type_2_ems" disabled placeholder="หมายเลขพัสดุที่ส่ง">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="info_turn_3_display">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <b>อื่นๆ :</b>
+                                                                <textarea class="form-control mb-2" id="info_return_type_3_other" disabled rows="3" placeholder="อื่นๆ"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                 
+                                </div>
+                            </div>
+                        </div>
                         <hr>
                         <div class="row" id="footer_button_info"></div>
                     </div>
@@ -542,7 +638,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-sm btn-block btn-primary"><i class="fas fa-save"></i> ยืนยัน</button>
+                        <div id="button_save_return"></div>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-sm btn-block btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> @lang('dashboard.close')</button>
