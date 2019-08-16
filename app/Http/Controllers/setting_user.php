@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Model\type as type;
+use Illuminate\Support\Facades\Auth;
 use App\Model\list_item as list_item;
 use App\Model\User as user;
 use Illuminate\Support\Facades\DB as DB;
@@ -13,7 +14,11 @@ class setting_user extends Controller
 {
     public function setting_user_page(Request $request)
     {
-        return view('setting_user');
+        if (Auth::check()) {
+            return view('setting_user');
+        }else {
+            return view('auth/login');
+        }
     }
 
     public function get_user_all(Request $request)
@@ -29,4 +34,5 @@ class setting_user extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
 }

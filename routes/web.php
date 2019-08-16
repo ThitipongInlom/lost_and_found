@@ -20,6 +20,10 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('/get_type', 'dashboard@get_type');
     Route::get('/get_user', 'setting_user@get_user_all');
     Route::get('/get_type_setting', 'setting_type@get_type_all');
+    Route::post('/save_show_type', 'setting_type@save_show_type');
+    Route::post('/delete_type', 'setting_type@delete_type');
+    Route::post('/save_type', 'setting_type@save_type');
+    Route::post('/edit_type', 'setting_type@edit_type');
     Route::post('/return_item', 'dashboard@return_item');
     Route::post('/save_retuen', 'dashboard@Save_return_item');
     Route::post('/save_add', 'dashboard@save_add');

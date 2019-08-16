@@ -68,3 +68,8 @@ var table_user = $('#table_user').DataTable({
         "regex": true
     },
 });
+
+var Open_add_modal = function Open_add_modal() {
+    $('#add_type_modal').modal('show');
+    $("body").css("padding-right", "0");
+}

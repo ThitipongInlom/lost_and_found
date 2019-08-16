@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Model\type as type;
+use Illuminate\Support\Facades\Auth;
 use App\Model\list_item as list_item;
 use Illuminate\Support\Facades\DB as DB;
 
@@ -12,9 +13,13 @@ class dashboard extends Controller
 {
     public function dashboard(Request $request)
     {
-        $type = type::get();
-        return view('dashboard',[
-                    'type' => $type]);
+        $type = type::where('type_show', 'show')->get();
+        if (Auth::check()) {
+            return view('dashboard',[
+                        'type' => $type]);
+        }else{
+            return view('login');
+        }
     }
 
 	public static function DateThai()

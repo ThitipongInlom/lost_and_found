@@ -41,7 +41,7 @@
                                 <h3>จัดการผู้ใช้งาน</h3>
                             </div>
                             <div class="float-right text-right mb-2">
-                                
+                                <button class="btn btn-sm btn-success" onclick="Open_add_modal();"><i class="fas fa-plus"></i> เพิ่มผู้ใช้งาน</button>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -62,9 +62,74 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="add_type_modal" tabindex="-1" role="dialog" aria-labelledby="add_type_modal_Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="add_type_modal_Label"><i class="fas fa-plus"></i> ผุ้ใช้งาน</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3 mt-3">
+                            <input type="text" class="form-control form-control-sm" id="username_register" placeholder="ชื่อผุ้ใช้งาน" autofocus>
+                            <div class="input-group-append input-group-text span_input_form">
+                                <span class="fas fa-user"></span>
+                            </div>
+                            </div>
+                            <div class="input-group mb-3">
+                            <input type="password" class="form-control form-control-sm" id="password_register" placeholder="รหัสผ่าน">
+                            <div class="input-group-append input-group-text span_input_form">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                            </div>
+                            <div class="input-group mb-3">
+                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="ชื่อ">
+                            <div class="input-group-append input-group-text span_input_form">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-sm" id="lname" placeholder="นามสกุล">
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-sm" id="phone" placeholder="เบอร์โทร">
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control form-control-sm" id="email" placeholder="อีเมล์">
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-block btn-sm btn-success btn-loading" id="submit_register"><i class="fas fa-save"></i> ยืนยัน</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-block btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
     </body>
         <!-- All Js -->
         <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
         <script type="text/javascript" src="{{ url('js/setting_user.js') }}"></script>
+        <script type="text/javascript" src="{{ url('js/systemlogin.js') }}"></script>
         <script type="text/javascript" src="{{ url('js/lang.js') }}"></script>
 </html>

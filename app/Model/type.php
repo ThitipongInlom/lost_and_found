@@ -15,6 +15,7 @@ class type extends Model
      */
     protected $fillable = [
         'type_name', 
+        'type_show', 
     ];
 
     public $timestamps = true;
