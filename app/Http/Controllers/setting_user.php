@@ -26,7 +26,7 @@ class setting_user extends Controller
         $user = user::get();
         return Datatables::of($user)
             ->addColumn('action', function ($user) {
-                return '<button type="button" class="btn btn-sm btn-primary">แก้ไข</button>';
+                return '<button type="button" class="btn btn-sm btn-warning" type_id="'.$user->user_id.'" onclick="Open_edit_modal(this);"><i class="fas fa-edit"></i> แก้ไข</button>';
             })
             ->addColumn('name', function ($user) {
                 return $user->fname.' '.$user->lname;
