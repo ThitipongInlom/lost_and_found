@@ -35,4 +35,21 @@ class setting_user extends Controller
             ->make(true);
     }
 
+    public function get_edit_user_id(Request $request)
+    {
+        $user = user::where('user_id', $request->post('type_id'))->get();
+        return response()->json(['status' => 'success', 'error_text' => 'อัพเดตเสร็จสิ้น', 'data' => $user],200);
+    }
+
+    public function save_edit_user(Request $request)
+    {
+        $user = user::find($request->post('user_id'));
+        $user->fname = $request->post('fname_edit');
+        $user->lname = $request->post('lname_edit');
+        $user->phone = $request->post('phone_edit');
+        $user->email = $request->post('email_edit');
+        $user->save();
+        return response()->json(['status' => 'success', 'error_text' => 'อัพเดตเสร็จสิ้น'],200);
+    }
+
 }

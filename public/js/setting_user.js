@@ -223,7 +223,61 @@ var Check_null_input_register = function Check_null_input_register() {
 var Open_edit_modal = function Open_edit_modal(e) {
     $('#edit_type_modal').modal('show');
     $("body").css("padding-right", "0");
-    console.log(e);
+    var Data = new FormData();
+    Data.append('type_id', $(e).attr('type_id'));
+    // Ajax
+    $.ajax({
+        url: 'api/v1/get_edit_user_id',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+           $.each(res.data, function (key, value) {
+                $("#save_edit_modal").attr('user_id', value.user_id);
+                $("#username_edit").val(value.username);
+                $("#fname_edit").val(value.fname);
+                $("#lname_edit").val(value.lname);
+                $("#phone_edit").val(value.phone);
+                $("#email_edit").val(value.email);
+           });
+        }
+    });
+}
+
+var Save_edit_modal = function Save_edit_modal(e) {
+    var Toastr = Set_Toastr();
+    var Data = new FormData();
+    Data.append('user_id', $(e).attr('user_id'));
+    Data.append('username_edit', $('#username_edit').val());
+    Data.append('fname_edit', $('#fname_edit').val());
+    Data.append('lname_edit', $('#lname_edit').val());
+    Data.append('phone_edit', $('#phone_edit').val());
+    Data.append('email_edit', $('#email_edit').val());
+    // Ajax
+    $.ajax({
+        url: 'api/v1/save_edit_user',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            Toastr["success"](res.error_text);
+            $('#edit_type_modal').modal('hide');
+            var table = $('#table_user').DataTable();
+            table.draw();
+        }
+    });
 }
 
 var Set_Toastr = function Set_Toastr() {

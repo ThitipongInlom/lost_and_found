@@ -33,8 +33,53 @@
     <body class="bodybackground">
         @include('layout/Head')
         <!-- Body -->
+        <div class="row mt-3" style="margin-right: 10px;margin-left: 10px;">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list-ul"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">ของที่ลืม อยู่ในระบบ</span>
+                <span class="info-box-number">760</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-list-ul"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">ลูกค้าที่มารับแล้ว</span>
+                <span class="info-box-number">41,410</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list-ul"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">รอส่งคืน</span>
+                <span class="info-box-number">760</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-list-ul"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">สินค้าเกิน 3 เดือน</span>
+                <span class="info-box-number">2,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row">
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-1">
                 <div class="card card-success" style="margin-right: 20px;margin-left: 20px;">
                     <div class="card-body" style="background-color: #b6bcc14d !important;">
                         <div class="clearfix">

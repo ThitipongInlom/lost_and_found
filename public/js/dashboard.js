@@ -6,8 +6,8 @@ var table_all = $('#table_all').DataTable({
     "responsive": true,
     "fixedHeader": true,
     "aLengthMenu": [
-        [10, 20, 25, -1],
-        ["10", "20", "25", "ทั้งหมด"]
+        [5, 10, 20, -1],
+        ["5", "10", "20", "ทั้งหมด"]
     ],
     "ajax": {
         "url": 'api/v1/get_type',

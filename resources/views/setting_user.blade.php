@@ -139,7 +139,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="input-group mb-3 mt-3">
-                            <input type="text" class="form-control form-control-sm" id="username_edit" placeholder="ชื่อผุ้ใช้งาน" autofocus>
+                            <input type="text" class="form-control form-control-sm" id="username_edit" placeholder="ชื่อผุ้ใช้งาน" disabled>
                             <div class="input-group-append input-group-text span_input_form">
                                 <span class="fas fa-user"></span>
                             </div>
@@ -173,7 +173,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-block btn-sm btn-success btn-loading" id="submit_register_edit"><i class="fas fa-save"></i> ยืนยัน</button>
+                            <button type="button" class="btn btn-block btn-sm btn-success" id="save_edit_modal" onclick="Save_edit_modal(this);"><i class="fas fa-save"></i> ยืนยัน</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-block btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>
