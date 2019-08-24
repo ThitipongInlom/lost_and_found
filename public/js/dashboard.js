@@ -6,8 +6,8 @@ var table_all = $('#table_all').DataTable({
     "responsive": true,
     "fixedHeader": true,
     "aLengthMenu": [
-        [5, 10, 20, -1],
-        ["5", "10", "20", "ทั้งหมด"]
+        [10, 20, -1],
+        ["10", "20", "ทั้งหมด"]
     ],
     "ajax": {
         "url": 'api/v1/get_type',
@@ -17,11 +17,6 @@ var table_all = $('#table_all').DataTable({
         }
     },
     "columns": [{
-        "width": '5%', 
-        "render": function (data, type, full, meta) {
-            return meta.row+1;
-        }
-    },{
         "data": 'list_id',
         "name": 'list_id',
         "width": '5%',
@@ -52,11 +47,11 @@ var table_all = $('#table_all').DataTable({
     }],
     "columnDefs": [{
             "className": 'text-left',
-            "targets": [3, 4]
+            "targets": []
         },
         {
             "className": 'text-center',
-            "targets": [0, 1, 5, 6]
+            "targets": [0, 1, 4, 5]
         },{
             "className": 'text-right',
             "targets": []
@@ -80,9 +75,12 @@ var table_all = $('#table_all').DataTable({
             "previous": "ย้อนกลับ"
         },
     },
-    search: {
+    "search": {
         "regex": true
     },
+    "order": [
+        [4, 'desc']
+    ]
 });
 
 var Set_daterange_single = function Set_daterange_single() {

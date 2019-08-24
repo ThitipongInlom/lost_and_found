@@ -23,6 +23,31 @@ var Upload_background_web = function Upload_background_web() {
     })
 }
 
+var Upload_icon_web = function Upload_icon_web() {
+    var Toastr = Set_Toastr();
+    var Data = new FormData();
+    Data.append('img', $("#icon_web").prop('files')[0]);
+    // Ajax
+    $.ajax({
+        url: 'api/v1/icon_web',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            Toastr["success"](res.error_text);
+            setTimeout(function () {
+                window.location.reload(true);
+            }, 1000);
+        }
+    })
+}
+
 var Set_Toastr = function Set_Toastr() {
     // Toastr Options
     Toastr.options = {

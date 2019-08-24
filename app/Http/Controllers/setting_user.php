@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB as DB;
 
 class setting_user extends Controller
 {
+    
     public function setting_user_page(Request $request)
     {
         if (Auth::check()) {

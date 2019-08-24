@@ -39,4 +39,23 @@ class setting_web extends Controller
         }
         return response()->json(['status' => 'success', 'error_text' => 'เปลี่ยนรูปภาพพื้นหลังเรียบร้อยแล้ว'],200);
     }
+
+    public function icon_web(Request $request)
+    {
+        $old_file = file_exists(public_path("img/web_setting/icon.gif")); 
+        if ($old_file == '1') {
+            unlink(public_path("img/web_setting/icon.gif"));
+        }
+        $IMG = $request->file('img');
+        if(isset($IMG)) {
+            // Name In Sha
+            $IMG_1_sha = 'icon';
+            // Re Name Success
+            $IMG_1_name = $IMG_1_sha.'.'.$request->file('img')->getClientOriginalExtension();
+            // Path To Save Img
+            $IMG_1_path = public_path('/img/web_setting');
+            $IMG->move($IMG_1_path, $IMG_1_name);
+        }
+        return response()->json(['status' => 'success', 'error_text' => 'เปลี่ยนรูปภาพพื้นหลังเรียบร้อยแล้ว'],200);      
+    }
 }

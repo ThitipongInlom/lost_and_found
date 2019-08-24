@@ -8,7 +8,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ url('/') }}">
-                    <img src="{{ url('img/web_setting/thezign.gif') }}" width="100" height="30" alt="Logo Hotel">
+                    <img src="{{ url('img/web_setting/icon.gif') }}" width="100" height="30" alt="Logo Hotel">
                         <b>The Zgin Hotel</b>
                 </a>
             </li>

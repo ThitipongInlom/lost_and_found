@@ -39,4 +39,5 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('/do_login', 'systemlogin@do_login');
     Route::post('/do_register', 'systemlogin@do_register');
     Route::post('/background_web', 'setting_web@background_web');
+    Route::post('/icon_web', 'setting_web@icon_web');
 });

@@ -37,8 +37,9 @@
                 <div class="card card-success" style="margin-right: 20px;margin-left: 20px;">
                     <div class="card-body" style="background-color: #b6bcc14d !important;">
                         <div class="row">
+                            <!-- Background -->
                             <div class="col-md-4">
-                                <div class="card" style="width: 18rem;">
+                                <div class="card shadow-lg" style="width: 18rem;">
                                 <img src="{{ url('img/web_setting/background.jpg') }}" height="180" class="card-img-top">
                                     <div class="card-body">
                                         <div class="clearfix">
@@ -48,6 +49,22 @@
                                         <div class="custom-file mt-2">
                                             <input type="file" class="custom-file-input" id="background_web" accept="image/jpeg" onchange="Upload_background_web();">
                                             <label class="custom-file-label" for="background_web">เลือก ภาพพื้นหลังใหม่</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Icon -->
+                            <div class="col-md-4">
+                                <div class="card shadow-lg" style="width: 18rem;">
+                                <img src="{{ url('img/web_setting/icon.gif') }}" height="180" class="card-img-top">
+                                    <div class="card-body">
+                                        <div class="clearfix">
+                                            <b class="float-left">รูปภาพโลโก้</b>
+                                            <button type="button" class="btn btn-sm float-right btn-secondary" data-toggle="tooltip" data-placement="right" title="อนุญาติ ให้เลือกรูปภาพที่เป็นไฟล์ .GIF"><i class="far fa-file-alt"></i></button>
+                                        </div>
+                                        <div class="custom-file mt-2">
+                                            <input type="file" class="custom-file-input" id="icon_web" accept="image/gif" onchange="Upload_icon_web();">
+                                            <label class="custom-file-label" for="icon_web">เลือก รูปภาพโลโก้</label>
                                         </div>
                                     </div>
                                 </div>

@@ -45,7 +45,7 @@
         @foreach ($item as $row)
             <div class="row mt-3">
                 <div class="col-md-12 text-center">
-                    <img class="mb-3" src="{{ url('img/web_setting/thezign.gif') }}" width="100" height="40">
+                    <img class="mb-3" src="{{ url('img/web_setting/icon.gif') }}" width="100" height="40">
                     <p class="mt-3"><b>@lang('dashboard.allow_to')</b> ....................................................................................................... <b>@lang('dashboard.number')</b> ............................ <b>@lang('dashboard.position')</b> ..............................................................</p>
                 </div>
             </div>

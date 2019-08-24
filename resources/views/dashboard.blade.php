@@ -36,24 +36,24 @@
         <div class="row mt-3" style="margin-right: 10px;margin-left: 10px;">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list-ul"></i></span>
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list-ul"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">ของที่ลืม อยู่ในระบบ</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">รายการใน สต้อก เดือน / ทั้งหมด</span>
+                <span class="info-box-number">{{ $instockmonth }} / {{ $instockall }}</span>
               </div>
             </div>
           </div>
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-list-ul"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-list-ul"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">ลูกค้าที่มารับแล้ว</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">รอส่งคืน เดือน / ทั้งหมด</span>
+                <span class="info-box-number">{{ $waitmonth }} / {{ $waitall }}</span>
               </div>
             </div>
-          </div>
+          </div>         
 
           <div class="clearfix hidden-md-up"></div>
 
@@ -62,14 +62,14 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list-ul"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">รอส่งคืน</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">ลูกค้าที่มารับแล้ว เดือน / ทั้งหมด</span>
+                <span class="info-box-number">{{ $turnmonth }} / {{ $turnall }}</span>
               </div>
             </div>
           </div>
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-list-ul"></i></span>
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-list-ul"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">สินค้าเกิน 3 เดือน</span>
@@ -100,7 +100,6 @@
                         <table class="table table-sm dt-responsive nowrap row-border table-bordered table-hover" cellspacing="0" cellpadding="0" id="table_all" width="100%">
                             <thead>
                                 <tr align="center" class="bg-primary">
-                                    <th>#</th>
                                     <th>Ref</th>
                                     <th>@lang('dashboard.type')</th>
                                     <th>@lang('dashboard.detail')</th>
@@ -584,7 +583,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img class="mb-3" src="{{ url('img/web_setting/thezign.gif') }}" width="100" height="40">
+                                <img class="mb-3" src="{{ url('img/web_setting/icon.gif') }}" width="100" height="40">
                             </div>
                         </div>
                         <div class="row">

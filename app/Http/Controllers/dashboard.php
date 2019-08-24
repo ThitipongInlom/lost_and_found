@@ -14,8 +14,20 @@ class dashboard extends Controller
     public function dashboard(Request $request)
     {
         $type = type::where('type_show', 'show')->get();
+        $instockmonth = list_item::whereMonth('date_found', date('m'))->whereNull('return_item')->count();
+        $instockall = list_item::whereNull('return_item')->count();
+        $waitmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'wait')->count();
+        $waitall = list_item::where('return_item', 'wait')->count();
+        $turnmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'turn')->count();
+        $turnall = list_item::where('return_item', 'turn')->count();
         if (Auth::check()) {
             return view('dashboard',[
+                        'instockmonth' => $instockmonth,
+                        'instockall' => $instockall,
+                        'waitmonth' => $waitmonth,
+                        'waitall' => $waitall,
+                        'turnmonth' => $turnmonth,
+                        'turnall' => $turnall,
                         'type' => $type]);
         }else{
             return view('login');
@@ -225,7 +237,9 @@ class dashboard extends Controller
                 if ($list_item->return_item == '') {
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.view').'" onclick="Open_model_info(this);"><i class="fas fa-info"></i> '.trans('dashboard.view').'</button> ';
                     $button .= '<button type="button" class="btn btn-sm btn-warning" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.edit').'" onclick="Open_model_edit(this);"><i class="fas fa-edit"></i> '.trans('dashboard.edit').'</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-danger" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.del').'" onclick="Open_model_delete(this);"><i class="fas fa-trash"></i> '.trans('dashboard.del').'</button> ';
+                    if (Auth::User()->status == 'admin') {
+                        $button .= '<button type="button" class="btn btn-sm btn-danger" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.del').'" onclick="Open_model_delete(this);"><i class="fas fa-trash"></i> '.trans('dashboard.del').'</button> ';
+                    }
                     $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.print').'" onclick="Open_model_print(this);"><i class="fas fa-print"></i> '.trans('dashboard.print').'</button> ';
                 }elseif($list_item->return_item == 'wait') {
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.view').'" onclick="Open_model_info(this);"><i class="fas fa-info"></i> '.trans('dashboard.view').'</button> ';
