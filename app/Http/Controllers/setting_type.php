@@ -23,7 +23,7 @@ class setting_type extends Controller
 
     public function get_type_all(Request $request)
     {
-        $type = type::get();
+        $type = type::where('type_class', 'item')->get();
         return Datatables::of($type)
             ->addColumn('Show', function ($type) {
                 $Show = '';
@@ -39,13 +39,48 @@ class setting_type extends Controller
                 $button = '';
                 if ($type->type_show == 'show') {
                     $button .= '<button type="button" class="btn btn-sm btn-warning" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" onclick="Open_edit_modal(this);"><i class="fas fa-edit"></i> แก้ไข</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-primary" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" name="ปิดการแสดง" onclick="Open_eye_show_modal(this);"><i class="fas fa-eye-slash"></i> ปิดการแสดง</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-primary" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" type_class="item" name="ปิดการแสดง" onclick="Open_eye_show_modal(this);"><i class="fas fa-eye-slash"></i> ปิดการแสดง</button> ';
                     if ($item_count == '0'){
                         $button .= '<button type="button" class="btn btn-sm btn-danger" type_id="'.$type->type_id.'" onclick="Open_delete_modal(this);"><i class="fas fa-trash"></i> ลบ</button> ';
                     }
                 }else {
                     $button .= '<button type="button" class="btn btn-sm btn-warning" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" onclick="Open_edit_modal(this);"><i class="fas fa-edit"></i> แก้ไข</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-primary" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" name="เปิดการแสดง" onclick="Open_eye_show_modal(this);"><i class="fas fa-eye"></i> เปิดการแสดง</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-primary" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" type_class="item" name="เปิดการแสดง" onclick="Open_eye_show_modal(this);"><i class="fas fa-eye"></i> เปิดการแสดง</button> ';
+                    if ($item_count == '0'){
+                        $button .= '<button type="button" class="btn btn-sm btn-danger" type_id="'.$type->type_id.'" onclick="Open_delete_modal(this);"><i class="fas fa-trash"></i> ลบ</button> ';
+                    }
+                }
+                return $button;
+            })
+            ->rawColumns(['Show', 'action'])
+            ->make(true);
+    }
+
+    public function get_place_all(Request $request)
+    {
+        $type = type::where('type_class', 'place')->get();
+        return Datatables::of($type)
+            ->addColumn('Show', function ($type) {
+                $Show = '';
+                if ($type->type_show == 'show') {
+                    $Show .= '<span class="badge badge-success">แสดง</span> ';
+                }else {
+                    $Show .= '<span class="badge badge-danger">ไม่แสดง</span> ';
+                }
+                return $Show;
+            })
+            ->addColumn('action', function ($type) {
+                $item_count = list_item::where('item_type', $type->type_name)->count();
+                $button = '';
+                if ($type->type_show == 'show') {
+                    $button .= '<button type="button" class="btn btn-sm btn-warning" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" onclick="Open_edit_modal(this);"><i class="fas fa-edit"></i> แก้ไข</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-primary" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" type_class="place" name="ปิดการแสดง" onclick="Open_eye_show_modal(this);"><i class="fas fa-eye-slash"></i> ปิดการแสดง</button> ';
+                    if ($item_count == '0'){
+                        $button .= '<button type="button" class="btn btn-sm btn-danger" type_id="'.$type->type_id.'" onclick="Open_delete_modal(this);"><i class="fas fa-trash"></i> ลบ</button> ';
+                    }
+                }else {
+                    $button .= '<button type="button" class="btn btn-sm btn-warning" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" onclick="Open_edit_modal(this);"><i class="fas fa-edit"></i> แก้ไข</button> ';
+                    $button .= '<button type="button" class="btn btn-sm btn-primary" type_id="'.$type->type_id.'" type_name="'.$type->type_name.'" type_class="place" name="เปิดการแสดง" onclick="Open_eye_show_modal(this);"><i class="fas fa-eye"></i> เปิดการแสดง</button> ';
                     if ($item_count == '0'){
                         $button .= '<button type="button" class="btn btn-sm btn-danger" type_id="'.$type->type_id.'" onclick="Open_delete_modal(this);"><i class="fas fa-trash"></i> ลบ</button> ';
                     }
@@ -59,6 +94,7 @@ class setting_type extends Controller
     public function save_type(Request $request)
     {
         $type = new type;
+        $type->type_class = $request->post('type_class');
         $type->type_name = $request->post('add_type_name');
         $type->type_show = 'show';
         $type->save();
@@ -82,7 +118,7 @@ class setting_type extends Controller
             $type->type_show = 'hide';
         }
         $type->save();
-        return response()->json(['status' => 'success', 'error_text' => 'อัพเดตเสร็จสิ้น'],200);
+        return response()->json(['status' => 'success', 'type' => $request->post('type_class'),'error_text' => 'อัพเดตเสร็จสิ้น'],200);
     }
 
     public function delete_type(Request $request)

@@ -7,13 +7,14 @@ use Yajra\Datatables\Datatables;
 use App\Model\type as type;
 use Illuminate\Support\Facades\Auth;
 use App\Model\list_item as list_item;
+use App\Model\User as user;
 use Illuminate\Support\Facades\DB as DB;
 
 class dashboard extends Controller
 {
     public function dashboard(Request $request)
     {
-        $type = type::where('type_show', 'show')->get();
+        $type = type::where('type_show', 'show')->where('type_class', 'item')->get();
         $instockmonth = list_item::whereMonth('date_found', date('m'))->whereNull('return_item')->count();
         $instockall = list_item::whereNull('return_item')->count();
         $waitmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'wait')->count();
@@ -53,6 +54,7 @@ class dashboard extends Controller
         $IMG_1 = $request->file('img_1');
         $IMG_2 = $request->file('img_2');
         $IMG_3 = $request->file('img_3');
+        $place = user::where('user_id', Auth::User()->user_id)->value('place');
         $list_item = new list_item;
         $list_item->place_found = $request->post('place_found');
         $list_item->item_type = $request->post('item_type');
@@ -70,6 +72,7 @@ class dashboard extends Controller
         $list_item->found_by = $request->post('found_by');
         $list_item->locate_track = $request->post('locate_track');
         $list_item->record_by = $request->post('record_by');
+        $list_item->place = $place;
         if(isset($IMG_1)) {
             // Name In Sha
             $IMG_1_sha = sha1(now().$request->file('img_1')->getClientOriginalName());
@@ -146,6 +149,7 @@ class dashboard extends Controller
         $IMG_1 = $request->file('img_1');
         $IMG_2 = $request->file('img_2');
         $IMG_3 = $request->file('img_3');
+        $place = user::where('user_id', Auth::User()->user_id)->value('place');
         $list_item = list_item::find($request->post('list_id'));
         $list_item->place_found = $request->post('place_found');
         $list_item->item_type = $request->post('item_type');
@@ -163,6 +167,7 @@ class dashboard extends Controller
         $list_item->found_by = $request->post('found_by');
         $list_item->locate_track = $request->post('locate_track');
         $list_item->record_by = $request->post('record_by');
+        $list_item->place = $place;
         if(isset($IMG_1)) {
             // Name In Sha
             $IMG_1_sha = sha1(now().$request->file('img_1')->getClientOriginalName());
@@ -223,22 +228,45 @@ class dashboard extends Controller
     public function get_type(Request $request)
     {
         if ($request->get('type_select_table') == 'return_all'){
-            $list_item = list_item::get();
+            if (Auth::User()->status == 'admin') {
+                $list_item = list_item::get();
+            }else{
+                $place_view = explode(',', Auth::User()->place_view);
+                $list_item = list_item::whereIn('place', $place_view)->get();
+            }
         }elseif ($request->get('type_select_table') == 'return_yes') {
-            $list_item = list_item::where('return_item', 'turn')->get();
+            if (Auth::User()->status == 'admin') {
+                $list_item = list_item::where('return_item', 'turn')->get();
+            }else{
+                $place_view = explode(',', Auth::User()->place_view);
+                $list_item = list_item::whereIn('place', $place_view)->where('return_item', 'turn')->get();
+            }
         }elseif ($request->get('type_select_table') == 'return_wait') {
-            $list_item = list_item::where('return_item', 'wait')->get();
+            if (Auth::User()->status == 'admin') {
+                $list_item = list_item::where('return_item', 'wait')->get();
+            }else{
+                $place_view = explode(',', Auth::User()->place_view);
+                $list_item = list_item::whereIn('place', $place_view)->where('return_item', 'wait')->get();
+            }
         }elseif ($request->get('type_select_table') == 'return_no') {
-            $list_item = list_item::whereNull('return_item')->get();
+            if (Auth::User()->status == 'admin') {
+                $list_item = list_item::whereNull('return_item')->get();
+            }else{
+                $place_view = explode(',', Auth::User()->place_view);
+                $list_item = list_item::whereIn('place', $place_view)->whereNull('return_item')->get();
+            }
         }
+
         return Datatables::of($list_item)
             ->addColumn('action', function ($list_item) {
                 $button = '';
                 if ($list_item->return_item == '') {
                     $button .= '<button type="button" class="btn btn-sm btn-info" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.view').'" onclick="Open_model_info(this);"><i class="fas fa-info"></i> '.trans('dashboard.view').'</button> ';
-                    $button .= '<button type="button" class="btn btn-sm btn-warning" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.edit').'" onclick="Open_model_edit(this);"><i class="fas fa-edit"></i> '.trans('dashboard.edit').'</button> ';
-                    if (Auth::User()->status == 'admin') {
-                        $button .= '<button type="button" class="btn btn-sm btn-danger" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.del').'" onclick="Open_model_delete(this);"><i class="fas fa-trash"></i> '.trans('dashboard.del').'</button> ';
+                    if (Auth::User()->status == 'admin' OR Auth::User()->place != '') {
+                        $button .= '<button type="button" class="btn btn-sm btn-warning" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.edit').'" onclick="Open_model_edit(this);"><i class="fas fa-edit"></i> '.trans('dashboard.edit').'</button> ';
+                        if (Auth::User()->status == 'admin') {
+                            $button .= '<button type="button" class="btn btn-sm btn-danger" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.del').'" onclick="Open_model_delete(this);"><i class="fas fa-trash"></i> '.trans('dashboard.del').'</button> ';
+                        }
                     }
                     $button .= '<button type="button" class="btn btn-sm btn-dark" style="font-family: cursive;font-weight: 500;" list_item_id="'.$list_item->list_id.'" data-toggle="tooltip" data-placement="top" title="'.trans('dashboard.print').'" onclick="Open_model_print(this);"><i class="fas fa-print"></i> '.trans('dashboard.print').'</button> ';
                 }elseif($list_item->return_item == 'wait') {

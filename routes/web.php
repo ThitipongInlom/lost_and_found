@@ -22,6 +22,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('/get_type', 'dashboard@get_type');
     Route::get('/get_user', 'setting_user@get_user_all');
     Route::get('/get_type_setting', 'setting_type@get_type_all');
+    Route::get('/get_place_setting', 'setting_type@get_place_all');
     Route::post('/get_edit_user_id', 'setting_user@get_edit_user_id');
     Route::post('/save_edit_user', 'setting_user@save_edit_user');
     Route::post('/save_show_type', 'setting_type@save_show_type');

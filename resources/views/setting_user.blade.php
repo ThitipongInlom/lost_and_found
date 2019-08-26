@@ -51,6 +51,7 @@
                                     <th>#</th>
                                     <th>Username</th>
                                     <th>Name</th>
+                                    <th>Place</th>
                                     <th>Status</th>
                                     <th>IP Login</th>
                                     <th>Action</th>
@@ -74,43 +75,63 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="input-group mb-3 mt-3">
-                            <input type="text" class="form-control form-control-sm" id="username_register" placeholder="ชื่อผุ้ใช้งาน" autofocus>
-                            <div class="input-group-append input-group-text span_input_form">
-                                <span class="fas fa-user"></span>
+                        <div class="col-md-6">
+                            <div class="mb-2 mt-2">
+                                <label for="username_register">ชื่อผุ้ใช้งาน : </label>
+                                <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="username_register" placeholder="ชื่อผุ้ใช้งาน" autofocus>
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                                </div>
                             </div>
-                            </div>
-                            <div class="input-group mb-3">
-                            <input type="password" class="form-control form-control-sm" id="password_register" placeholder="รหัสผ่าน">
-                            <div class="input-group-append input-group-text span_input_form">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                            </div>
-                            <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-sm" id="fname" placeholder="ชื่อ">
-                            <div class="input-group-append input-group-text span_input_form">
-                                <i class="fas fa-id-card"></i>
-                            </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control-sm" id="lname" placeholder="นามสกุล">
+                            <div class="mb-2 mt-2">
+                                <label for="fname">ชื่อ : </label>
+                                <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="fname" placeholder="ชื่อ">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-id-card"></i>
                                 </div>
+                                </div>
                             </div>
-                            <div class="input-group mb-3">
+                            <div class="mb-2 mt-2">
+                                <label for="phone">เบอร์โทร : </label>
+                                <div class="input-group">
                                 <input type="text" class="form-control form-control-sm" id="phone" placeholder="เบอร์โทร">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-phone"></i>
                                 </div>
+                                </div>
                             </div>
-                            <div class="input-group mb-3">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 mt-2">
+                                <label for="password_register">ชื่อผุ้ใช้งาน : </label>
+                                <div class="input-group">
+                                <input type="password" class="form-control form-control-sm" id="password_register" placeholder="รหัสผ่าน">
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                                </div>
+                            </div>   
+                            <div class="mb-2 mt-2">
+                                <label for="password_register">ชื่อผุ้ใช้งาน : </label>
+                                <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="lname" placeholder="นามสกุล">
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                </div>
+                            </div>    
+                            <div class="mb-2 mt-2">
+                                <label for="password_register">อีเมล์ : </label>
+                                <div class="input-group">
                                 <input type="email" class="form-control form-control-sm" id="email" placeholder="อีเมล์">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-envelope"></i>
                                 </div>
-                            </div>
+                                </div>
+                            </div>                    
                         </div>
                     </div>
                     <hr>
@@ -138,36 +159,81 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="input-group mb-3 mt-3">
-                            <input type="text" class="form-control form-control-sm" id="username_edit" placeholder="ชื่อผุ้ใช้งาน" disabled>
-                            <div class="input-group-append input-group-text span_input_form">
-                                <span class="fas fa-user"></span>
-                            </div>
-                            </div>
-                            <div class="input-group mb-3">
-                            <input type="text" class="form-control form-control-sm" id="fname_edit" placeholder="ชื่อ">
-                            <div class="input-group-append input-group-text span_input_form">
-                                <i class="fas fa-id-card"></i>
-                            </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control form-control-sm" id="lname_edit" placeholder="นามสกุล">
+                            <div class="mb-1 mt-2">
+                                <label for="fname_edit">ชื่อผุ้ใช้งาน : </label>
+                                <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="username_edit" placeholder="ชื่อผุ้ใช้งาน" disabled>
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                                </div>
+                            </div>                         
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-2 mt-2">
+                                <label for="fname_edit">ชื่อ : </label>
+                                <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="fname_edit" placeholder="ชื่อ">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-id-card"></i>
                                 </div>
-                            </div>
-                            <div class="input-group mb-3">
+                                </div>
+                            </div>  
+                            <div class="mb-2 mt-2">
+                                <label for="fname_edit">เบอร์โทร : </label>
+                                <div class="input-group">
                                 <input type="text" class="form-control form-control-sm" id="phone_edit" placeholder="เบอร์โทร">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-phone"></i>
                                 </div>
+                                </div>
+                            </div>  
+                            <div class="mb-2 mt-2">
+                                <label for="fname_edit">สถานที่เก็บ : </label>
+                                <div class="input-group">
+                                <select class="form-control form-control-sm" id="place_edit">
+                                    <option value="">ไม่มีสถานที่เก็บ</option>
+                                    @foreach ($place as $row)
+                                        <option value="{{ $row->type_name }}" >{{ $row->type_name }}</option>  
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                </div>
                             </div>
-                            <div class="input-group mb-3">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 mt-2">
+                                <label for="fname_edit">นามสกุล : </label>
+                                <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="lname_edit" placeholder="นามสกุล">
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                </div>
+                            </div>     
+                            <div class="mb-2 mt-2">
+                                <label for="fname_edit">อีเมล์ : </label>
+                                <div class="input-group">
                                 <input type="email" class="form-control form-control-sm" id="email_edit" placeholder="อีเมล์">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-envelope"></i>
                                 </div>
-                            </div>
+                                </div>
+                            </div>                 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-2 mb-2">
+                            <label for="fname_edit">สถานที่จะดู : </label>
+                            <select class="form-control TEST" multiple="multiple" id="place_view_edit" placeholder="เลือก สถานที่จะดู">
+                                @foreach ($place as $row)
+                                    <option value="{{ $row->type_name }}" >{{ $row->type_name }}</option>  
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <hr>

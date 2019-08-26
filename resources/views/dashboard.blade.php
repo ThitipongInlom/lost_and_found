@@ -93,7 +93,13 @@
                                     <option value="return_no">@lang('dashboard.list_not_received')</option>
                                     <option value="return_wait">@lang('dashboard.list_not_wait')</option>
                                 </select>
-                                <button class="btn btn-sm btn-success" onclick="Open_model_add();"><i class="fas fa-plus"></i> @lang('dashboard.add_data')</button>
+                                <button class="btn btn-sm btn-success" onclick="Open_model_add();"
+                                @if (Auth::User()->place != '')
+
+                                @else
+                                    disabled
+                                @endif
+                                ><i class="fas fa-plus"></i> @lang('dashboard.add_data')</button>
                             </div>
                         </div>
                         <div class="table-responsive">

@@ -63,10 +63,76 @@ var table_type = $('#table_type').DataTable({
     },
 });
 
-var Open_add_modal = function Open_add_modal() {
+var table_place = $('#table_place').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "bPaginate": true,
+    "responsive": true,
+    "fixedHeader": true,
+    "aLengthMenu": [
+        [10, 20, 25, -1],
+        ["10", "20", "25", "ทั้งหมด"]
+    ],
+    "ajax": {
+        "url": 'api/v1/get_place_setting',
+        "type": 'get',
+    },
+    "columns": [{
+        "width": '5%',
+        "render": function (data, type, full, meta) {
+            return meta.row + 1;
+        }
+    }, {
+        "data": 'type_name',
+        "name": 'type_name',
+    }, {
+        "data": 'Show',
+        "name": 'Show'
+    }, {
+        "data": 'action',
+        "name": 'action'
+    }],
+    "columnDefs": [{
+            "className": 'text-left',
+            "targets": [1]
+        },
+        {
+            "className": 'text-center',
+            "targets": [0, 2]
+        }, {
+            "className": 'text-right',
+            "targets": []
+        }, {
+            "className": 'text-truncate',
+            "targets": []
+        },
+    ],
+    "language": {
+        "lengthMenu": "แสดง _MENU_ รายการ",
+        "search": "ค้นหา:",
+        "info": "แสดง _START_ ถึง _END_ ทั้งหมด _TOTAL_ รายการ",
+        "infoEmpty": "แสดง 0 ถึง 0 ทั้งหมด 0 รายการ",
+        "infoFiltered": "(จาก ทั้งหมด _MAX_ ทั้งหมด รายการ)",
+        "processing": "กำลังโหลดข้อมูล...",
+        "zeroRecords": "ไม่มีข้อมูล",
+        "paginate": {
+            "first": "หน้าแรก",
+            "last": "หน้าสุดท้าย",
+            "next": "ต่อไป",
+            "previous": "ย้อนกลับ"
+        },
+    },
+    search: {
+        "regex": true
+    },
+});
+
+var Open_add_modal = function Open_add_modal(e) {
     $('#add_type_modal').modal('show');
     $("body").css("padding-right", "0");
+    var type_class = $(e).attr('type_class');
     $("#add_type_name").val('').removeClass('is-valid').removeClass('is-invalid');
+    $("#save_modal_add").attr('type_class', type_class);
 }
 
 var Open_edit_modal = function Open_edit_modal(e) {
@@ -86,6 +152,7 @@ var Save_edit_modal = function Save_edit_modal(e) {
     var Data = new FormData();
     Data.append('type_id', $(e).attr('type_id'));
     Data.append('type_name', $("#edit_type_name").val());
+    Data.append('type_class', $(e).attr('type_class'));
     if (Auth == true) {
         // Ajax
         $.ajax({
@@ -102,8 +169,9 @@ var Save_edit_modal = function Save_edit_modal(e) {
             success: function (res) {
                 $('#edit_type_modal').modal('hide');
                 Toastr["success"](res.error_text);
-                var table = $('#table_type').DataTable();
-                table.draw();
+                // Reload Table
+                $('#table_type').DataTable().draw();
+                $('#table_place').DataTable().draw();
             }
         });
     } else {
@@ -132,12 +200,13 @@ var Auth_save_edit = function Auth_save_edit() {
     return result;
 }
 
-var Save_add_modal = function Save_add_modal() {
+var Save_add_modal = function Save_add_modal(e) {
     var lang = $('html').attr('lang');
     var Toastr = Set_Toastr();
     var Auth = Auth_save_add();
     var Data = new FormData();
     Data.append('add_type_name', $("#add_type_name").val());
+    Data.append('type_class', $(e).attr('type_class'));
     if (Auth == true) {
         // Ajax
         $.ajax({
@@ -154,8 +223,9 @@ var Save_add_modal = function Save_add_modal() {
             success: function (res) {
                 $('#add_type_modal').modal('hide');
                 Toastr["success"](res.error_text);
-                var table = $('#table_type').DataTable();
-                table.draw();
+                // Reload Table
+                $('#table_type').DataTable().draw();
+                $('#table_place').DataTable().draw();
             }
         });
     }else {
@@ -201,6 +271,7 @@ var Open_eye_show_modal = function Open_eye_show_modal(e) {
     $("#eye_show_type_name").html($(e).attr('type_name'));
     $("#save_eye_show_mdoal").attr('type_id', $(e).attr('type_id'));
     $("#save_eye_show_mdoal").attr('change_name', change_name);
+    $("#save_eye_show_mdoal").attr('type_class', $(e).attr('type_class'));
 }
 
 var Save_eye_show_modal = function Save_eye_show_modal(e) {
@@ -208,6 +279,7 @@ var Save_eye_show_modal = function Save_eye_show_modal(e) {
     var Data = new FormData();
     Data.append('type_id', $(e).attr('type_id'));
     Data.append('change_name', $(e).attr('change_name'));
+    Data.append('type_class', $(e).attr('type_class'));
     // Ajax
     $.ajax({
         url: 'api/v1/save_show_type',
@@ -223,8 +295,9 @@ var Save_eye_show_modal = function Save_eye_show_modal(e) {
         success: function (res) {
             $('#eye_show_modal').modal('hide');
             Toastr["success"](res.error_text);
-            var table = $('#table_type').DataTable();
-            table.draw();
+            // Reload Table
+            $('#table_type').DataTable().draw();
+            $('#table_place').DataTable().draw();
         }
     });
 }
@@ -254,8 +327,9 @@ var Save_delete_type_modal = function Save_delete_type_modal(e) {
         success: function (res) {
            $('#delete_type_modal').modal('hide');
            Toastr["success"](res.error_text);
-           var table = $('#table_type').DataTable();
-           table.draw();
+            // Reload Table
+            $('#table_type').DataTable().draw();
+            $('#table_place').DataTable().draw();
         }
     });
 }

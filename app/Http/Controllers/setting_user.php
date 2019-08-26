@@ -15,8 +15,10 @@ class setting_user extends Controller
     
     public function setting_user_page(Request $request)
     {
+        $place = type::where('type_class', 'place')->get();
         if (Auth::check()) {
-            return view('setting_user');
+            return view('setting_user',[
+                        'place' => $place]);
         }else {
             return view('auth/login');
         }
@@ -49,6 +51,8 @@ class setting_user extends Controller
         $user->lname = $request->post('lname_edit');
         $user->phone = $request->post('phone_edit');
         $user->email = $request->post('email_edit');
+        $user->place = $request->post('place_edit');
+        $user->place_view = $request->post('place_view');
         $user->save();
         return response()->json(['status' => 'success', 'error_text' => 'อัพเดตเสร็จสิ้น'],200);
     }

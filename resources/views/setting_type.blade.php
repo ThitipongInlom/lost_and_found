@@ -28,24 +28,53 @@
             #table_type tbody {
                 background-color: #ffffff !important;
             }
+            #table_place tbody {
+                background-color: #ffffff !important;
+            }
         </style>
     </head>
     <body class="bodybackground">
         @include('layout/Head')
         <div class="row">
             <div class="col-md-6 mt-3">
-                <div class="card card-success" style="margin-right: 20px;margin-left: 20px;">
+                <div class="card card-success" style="margin-left: 20px;">
                     <div class="card-body" style="background-color: #b6bcc14d !important;">
                         <div class="clearfix">
                             <div class="float-left mb-2">
                                 <h3>จัดการประเภท</h3>
                             </div>
                             <div class="float-right text-right mb-2">
-                                <button class="btn btn-sm btn-success" onclick="Open_add_modal();"><i class="fas fa-plus"></i> เพิ่มประเภท</button>
+                                <button class="btn btn-sm btn-success" type_class="item" onclick="Open_add_modal(this);"><i class="fas fa-plus"></i> เพิ่มประเภท</button>
                             </div>
                         </div>
                         <div class="table-responsive">
                         <table class="table table-sm dt-responsive nowrap row-border table-bordered table-hover" cellspacing="0" cellpadding="0" id="table_type" width="100%">
+                            <thead>
+                                <tr align="center" class="bg-primary">
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Show</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="card card-success" style="margin-right: 20px;">
+                    <div class="card-body" style="background-color: #b6bcc14d !important;">
+                        <div class="clearfix">
+                            <div class="float-left mb-2">
+                                <h3>จัดการสถานที่</h3>
+                            </div>
+                            <div class="float-right text-right mb-2">
+                                <button class="btn btn-sm btn-success" type_class="place" onclick="Open_add_modal(this);"><i class="fas fa-plus"></i> เพิ่มสถานที่</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                        <table class="table table-sm dt-responsive nowrap row-border table-bordered table-hover" cellspacing="0" cellpadding="0" id="table_place" width="100%">
                             <thead>
                                 <tr align="center" class="bg-primary">
                                     <th>#</th>
@@ -80,7 +109,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-block btn-sm btn-success" onclick="Save_add_modal();"><i class="fas fa-save"></i> ยืนยัน</button>
+                            <button type="button" class="btn btn-block btn-sm btn-success" id="save_modal_add" onclick="Save_add_modal(this);"><i class="fas fa-save"></i> ยืนยัน</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-block btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>
@@ -109,7 +138,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-block btn-sm btn-success" id="save_edit_mdoal" onclick="Save_edit_modal(this);"><i class="fas fa-save"></i> ยืนยัน</button>
+                            <button type="button" class="btn btn-block btn-sm btn-success" id="save_edit_modal" onclick="Save_edit_modal(this);"><i class="fas fa-save"></i> ยืนยัน</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-block btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>

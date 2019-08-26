@@ -14,6 +14,7 @@ class type extends Model
      * รายชื่อ ตาราง ใน ดาต้าเบส
      */
     protected $fillable = [
+        'type_class',
         'type_name', 
         'type_show', 
     ];

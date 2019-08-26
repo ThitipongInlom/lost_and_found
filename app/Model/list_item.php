@@ -24,6 +24,7 @@ class list_item extends Model
         'found_by',
         'locate_track',
         'record_by',
+        'place',
         'img_1',
         'img_2',
         'img_3',
