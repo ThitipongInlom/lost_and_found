@@ -15,12 +15,23 @@ class dashboard extends Controller
     public function dashboard(Request $request)
     {
         $type = type::where('type_show', 'show')->where('type_class', 'item')->get();
-        $instockmonth = list_item::whereMonth('date_found', date('m'))->whereNull('return_item')->count();
-        $instockall = list_item::whereNull('return_item')->count();
-        $waitmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'wait')->count();
-        $waitall = list_item::where('return_item', 'wait')->count();
-        $turnmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'turn')->count();
-        $turnall = list_item::where('return_item', 'turn')->count();
+
+        $place_view = explode(',', Auth::User()->place_view);
+        if (Auth::User()->status == 'admin') {
+            $instockmonth = list_item::whereMonth('date_found', date('m'))->whereNull('return_item')->count();
+            $instockall = list_item::whereNull('return_item')->count();
+            $waitmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'wait')->count();
+            $waitall = list_item::where('return_item', 'wait')->count();
+            $turnmonth = list_item::whereMonth('date_found', date('m'))->where('return_item', 'turn')->count();
+            $turnall = list_item::where('return_item', 'turn')->count();
+        }else{
+            $instockmonth = list_item::whereIn('place', $place_view)->whereMonth('date_found', date('m'))->whereNull('return_item')->count();
+            $instockall = list_item::whereIn('place', $place_view)->whereNull('return_item')->count();
+            $waitmonth = list_item::whereIn('place', $place_view)->whereMonth('date_found', date('m'))->where('return_item', 'wait')->count();
+            $waitall = list_item::whereIn('place', $place_view)->where('return_item', 'wait')->count();
+            $turnmonth = list_item::whereIn('place', $place_view)->whereMonth('date_found', date('m'))->where('return_item', 'turn')->count();
+            $turnall = list_item::whereIn('place', $place_view)->where('return_item', 'turn')->count();            
+        }
         if (Auth::check()) {
             return view('dashboard',[
                         'instockmonth' => $instockmonth,

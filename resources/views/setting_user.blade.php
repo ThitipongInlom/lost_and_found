@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2 mt-2">
-                                <label for="password_register">ชื่อผุ้ใช้งาน : </label>
+                                <label for="password_register">รหัสผ่าน : </label>
                                 <div class="input-group">
                                 <input type="password" class="form-control form-control-sm" id="password_register" placeholder="รหัสผ่าน">
                                 <div class="input-group-append input-group-text span_input_form">
@@ -115,7 +115,7 @@
                                 </div>
                             </div>   
                             <div class="mb-2 mt-2">
-                                <label for="password_register">ชื่อผุ้ใช้งาน : </label>
+                                <label for="password_register">นามสกุล : </label>
                                 <div class="input-group">
                                 <input type="text" class="form-control form-control-sm" id="lname" placeholder="นามสกุล">
                                 <div class="input-group-append input-group-text span_input_form">
