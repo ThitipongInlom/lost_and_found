@@ -249,6 +249,34 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="resetpw_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="resetpw_modalLabel">รีเซ็ต รหัสผ่านใหม่</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="input_resetpw">New Password</label>
+                            <input type="text" class="form-control form-control-sm" id="input_resetpw" placeholder="กรุณากรอกรหัสผ่านใหม่">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-block btn-sm btn-success" id="save_resset_modal" onclick="Save_resetpw(this);"><i class="fas fa-save"></i> ยืนยัน</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-block btn-sm btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
         <!-- All Js -->
         <script type="text/javascript" src="{{ url('js/app.js') }}"></script>

@@ -33,6 +33,10 @@ var table_all = $('#table_all').DataTable({
         "name": 'place_found',
         "width": '15%',
     },{
+        "data": 'place',
+        "name": 'place',
+        "width": '15%',
+    },{
         "data": 'date_found',
         "name": 'date_found',
         "width": '10%',
@@ -51,7 +55,7 @@ var table_all = $('#table_all').DataTable({
         },
         {
             "className": 'text-center',
-            "targets": [0, 1, 4, 5]
+            "targets": [0, 4, 5, 6]
         },{
             "className": 'text-right',
             "targets": []
@@ -79,7 +83,7 @@ var table_all = $('#table_all').DataTable({
         "regex": true
     },
     "order": [
-        [4, 'desc']
+        [5, 'desc']
     ]
 });
 
@@ -788,6 +792,7 @@ var Open_model_return = function Open_model_return(e) {
     var Toastr = Set_Toastr();
     var list_item_id = $(e).attr('list_item_id');
     $('#model_return').modal('show');
+    $("body").css("padding-right", "0");
     var Data = new FormData();
     Data.append('list_item_id', list_item_id);
     // Ajax

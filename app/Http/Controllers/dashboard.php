@@ -83,7 +83,11 @@ class dashboard extends Controller
         $list_item->found_by = $request->post('found_by');
         $list_item->locate_track = $request->post('locate_track');
         $list_item->record_by = $request->post('record_by');
-        $list_item->place = $place;
+        if ($place == '') {
+            $list_item->place = 'ทั้งหมด'; 
+        }else{
+            $list_item->place = $place; 
+        }
         if(isset($IMG_1)) {
             // Name In Sha
             $IMG_1_sha = sha1(now().$request->file('img_1')->getClientOriginalName());

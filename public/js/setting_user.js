@@ -121,6 +121,12 @@ var register = function register() {
             success: function (res) {
                 Toastr["success"](res.error_text);
                 $('#add_type_modal').modal('hide');
+                $("#username_register").val('').removeClass('is-invalid').removeClass('is-valid');
+                $("#password_register").val('').removeClass('is-invalid').removeClass('is-valid');
+                $("#fname").val('').removeClass('is-invalid').removeClass('is-valid');
+                $("#lname").val('').removeClass('is-invalid').removeClass('is-valid');
+                $("#phone").val('').removeClass('is-invalid').removeClass('is-valid');
+                $("#email").val('').removeClass('is-invalid').removeClass('is-valid');
                 var table = $('#table_user').DataTable();
                 table.draw();
             }
@@ -261,6 +267,66 @@ var Open_edit_modal = function Open_edit_modal(e) {
            });
         }
     });
+}
+
+var Open_delete_modal = function Open_delete_modal(e) {
+    var Toastr = Set_Toastr();
+    var Data = new FormData();
+    Data.append('user_id', $(e).attr('type_id'));
+    // Ajax
+    $.ajax({
+        url: 'api/v1/delete_user',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: Data,
+        success: function (res) {
+            Toastr["success"](res.error_text);
+            var table = $('#table_user').DataTable();
+            table.draw();
+        }
+    });
+}
+
+var Open_resetpw_modal = function Open_resetpw_modal(e) {
+    $('#resetpw_modal').modal('show');
+    $("body").css("padding-right", "0");
+    $("#save_resset_modal").attr('user_id', $(e).attr('type_id'));
+}
+
+var Save_resetpw = function Save_resetpw(e) {
+    var Toastr = Set_Toastr();
+    var Data = new FormData();
+    if ($("#input_resetpw").val() == '') {
+        Toastr["error"]('กรุณากรอก Password ใหม่');
+    }else{
+        Data.append('user_id', $(e).attr('user_id'));
+        Data.append('new_password', $('#input_resetpw').val());
+        // Ajax
+        $.ajax({
+            url: 'api/v1/save_resetpw',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: Data,
+            success: function (res) {
+                Toastr["success"](res.error_text);
+                $('#resetpw_modal').modal('hide');
+                var table = $('#table_user').DataTable();
+                table.draw();
+            }
+        });
+    }
 }
 
 var Save_edit_modal = function Save_edit_modal(e) {

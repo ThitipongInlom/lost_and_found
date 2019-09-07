@@ -73,7 +73,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">สินค้าเกิน 3 เดือน</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-number">รออัพเดต</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,8 @@
                                 <h3>แดชบอร์ด</h3>
                             </div>
                             <div class="float-right text-right mb-2">
-                                <select class="custom-select custom-select-sm col-8" id="type_select_table" onchange="load_table_on_select();">
+                                <a class="btn btn-sm btn-primary" href="{{ url('/report') }}" role="button"><i class="fas fa-cannabis"></i> รายงาน</a>
+                                <select class="custom-select custom-select-sm col-6" id="type_select_table" onchange="load_table_on_select();">
                                     <option value="return_all" selected>@lang('dashboard.list_all_data')</option>
                                     <option value="return_yes">@lang('dashboard.list_received')</option>
                                     <option value="return_no">@lang('dashboard.list_not_received')</option>
@@ -97,7 +98,11 @@
                                 @if (Auth::User()->place != '')
 
                                 @else
-                                    disabled
+                                    @if (Auth::User()->status == 'admin')
+
+                                    @else
+                                        disabled
+                                    @endif
                                 @endif
                                 ><i class="fas fa-plus"></i> @lang('dashboard.add_data')</button>
                             </div>
@@ -110,6 +115,7 @@
                                     <th>@lang('dashboard.type')</th>
                                     <th>@lang('dashboard.detail')</th>
                                     <th>@lang('dashboard.location')</th>
+                                    <th>สถานที่เก็บ</th>
                                     <th>@lang('dashboard.date')</th>
                                     <th>@lang('dashboard.return')</th>
                                     <th>@lang('dashboard.menu')</th>
@@ -632,15 +638,15 @@
                                     <tr class="text-left">
                                         <td width="60%">
                                             <b>ชื่อผู้นำสินค้าออก :</b> 
-                                            <input class="form-control form-control-sm" id="name_item_out" placeholder="ชื่อผู้นำสินค้าออก">
+                                            <input class="form-control form-control-sm mt-2" id="name_item_out" placeholder="กรอกชื่อผู้นำสินค้าออก">
                                         </td>
                                         <td width="20%">
                                             <b>แผนก :</b> 
-                                            <input class="form-control form-control-sm" id="dep_item_out" placeholder="แผนก">
+                                            <input class="form-control form-control-sm mt-2" id="dep_item_out" placeholder="กรอกแผนก">
                                         </td>
                                         <td width="20%">
                                             <b>วันที่นำสินค้าออก :</b> 
-                                            <div class="input-group input-group-sm">
+                                            <div class="input-group input-group-sm mt-2">
                                                 <input type="text" class="form-control form-control-sm daterange_single" id="date_item_out" placeholder="@lang('dashboard.date_found')" disabled>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
@@ -651,7 +657,7 @@
                                     <tr>
                                        <td colspan="4">
                                             <b>เลือกประเภทการนำสินค้าออก :</b>
-                                            <select class="custom-select custom-select-sm" id="print_type_send">
+                                            <select class="custom-select custom-select-sm mt-2" id="print_type_send">
                                                 <option value="0" selected>เลือกประเภทการนำสินค้าออก</option>
                                                 <option value="1">มารับเอง</option>
                                                 <option value="2">ส่งของคืนทางไปรษณีย์</option>

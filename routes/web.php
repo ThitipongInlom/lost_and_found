@@ -3,6 +3,8 @@
 Route::get('/', 'dashboard@dashboard')->middleware('auth');
 // Print
 Route::get('/print/{item_id}', 'dashboard@print_item');
+// Report
+Route::get('/report', 'report@report')->name('report');
 // Login
 Route::get('/login', 'systemlogin@login_page')->name('login');
 // Register
@@ -41,4 +43,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('/do_register', 'systemlogin@do_register');
     Route::post('/background_web', 'setting_web@background_web');
     Route::post('/icon_web', 'setting_web@icon_web');
+    Route::post('/save_resetpw', 'setting_user@save_resetpw');
+    Route::post('/delete_user', 'setting_user@delete_user');
+    Route::post('/get_tab_1', 'report@get_tab_1');
 });

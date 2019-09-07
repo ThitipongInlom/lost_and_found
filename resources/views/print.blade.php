@@ -97,13 +97,28 @@
                         </tr>
                         <tr>
                             <td>
-                                <b>ชื่อผู้นำสินค้าออก :</b> {{ $row->name_item_out }}
+                                <b>ชื่อผู้นำสินค้าออก :</b> 
+                                @if ($row->name_item_out == '')
+                                    {{ request()->get('name_item_out') }}
+                                @else
+                                    {{ $row->name_item_out }} 
+                                @endif
                             </td>
                             <td>
-                                <b>แผนก :</b> {{ $row->dep_item_out }}
+                                <b>แผนก :</b> 
+                                @if ($row->name_item_out == '')
+                                    {{ request()->get('dep_item_out') }}
+                                @else
+                                    {{ $row->dep_item_out }}
+                                @endif
                             </td>
                             <td>
-                                <b>วันที่นำสินค้าออก :</b> {{ date('d/m/Y', strtotime($row->date_item_out))  }}
+                                <b>วันที่นำสินค้าออก :</b> 
+                                @if ($row->name_item_out == '')
+                                    {{ date('d/m/Y', strtotime(now()))  }}
+                                @else
+                                    {{ date('d/m/Y', strtotime($row->date_item_out))  }}
+                                @endif
                             </td>
                         </tr>
                     </table>
