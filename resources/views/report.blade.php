@@ -28,8 +28,25 @@
             .loading_action{
                 display: none;
             }
-            #table_user tbody {
-                background-color: #ffffff !important;
+            @media screen {
+                #printSection {
+                display: none;
+                }
+            }
+            @media print {
+                body * {
+                visibility:hidden;
+                }
+                #printSection, #printSection * {
+                visibility:visible;
+                }
+                #printSection {
+                position:absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                }
             }
         </style>
     </head>
@@ -64,7 +81,8 @@
                                         <input type="text" class="form-control form-control-sm daterange" id="Tab_1_date">
                                     </div>
                                     <div class="col-auto my-1">
-                                        <button type="button" class="btn btn-sm btn-primary" onclick="show_tab_1();" data-toggle='tooltip' data-placement='bottom' title='ค้นหาข้อมูล'>ค้นหา</button>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="show_tab_1();" data-toggle='tooltip' data-placement='bottom' title='ค้นหาข้อมูล'><i class="fas fa-search"></i> ค้นหา</button>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="print_page(document.getElementById('Print_Report1'));" data-toggle='tooltip' data-placement='bottom' title='ปริ้นข้อมูล'><i class="fas fa-print"></i> ปริ้น</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -82,13 +100,91 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
-                             
+                                <div class="text-left">
+                                    <h4>ของลืมที่ยังไม่ได้รับคืน</h4>
+                                    <hr>
+                                </div>
+                                <div class="form-row align-items-center ml-1">
+                                    เลือกวันที่ : 
+                                    <div class="col-sm-2 my-1">
+                                        <input type="text" class="form-control form-control-sm daterange" id="Tab_2_date">
+                                    </div>
+                                    <div class="col-auto my-1">
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="show_tab_2();" data-toggle='tooltip' data-placement='bottom' title='ค้นหาข้อมูล'><i class="fas fa-search"></i> ค้นหา</button>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="print_page(document.getElementById('Print_Report2'));" data-toggle='tooltip' data-placement='bottom' title='ปริ้นข้อมูล'><i class="fas fa-print"></i> ปริ้น</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="Print_Report2" style="background-color: #ffffff;">
+                                    <div id="Tab2_Display"></div>
+                                    <div class="loading_action">
+                                        <div class="sk-folding-cube">
+                                            <div class="sk-cube1 sk-cube"></div>
+                                            <div class="sk-cube2 sk-cube"></div>
+                                            <div class="sk-cube4 sk-cube"></div>
+                                            <div class="sk-cube3 sk-cube"></div>
+                                        </div>
+                                        <h5 class="text-center">กำลังโหลดข้อมูล.....</h5>
+                                    </div>
+                                </div>                  
                             </div>
                             <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
-                            
+                                <div class="text-left">
+                                    <h4>ของลืมที่ลูกด้ามารับแล้ว</h4>
+                                    <hr>
+                                </div>
+                                <div class="form-row align-items-center ml-1">
+                                    เลือกวันที่ : 
+                                    <div class="col-sm-2 my-1">
+                                        <input type="text" class="form-control form-control-sm daterange" id="Tab_3_date">
+                                    </div>
+                                    <div class="col-auto my-1">
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="show_tab_3();" data-toggle='tooltip' data-placement='bottom' title='ค้นหาข้อมูล'><i class="fas fa-search"></i> ค้นหา</button>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="print_page(document.getElementById('Print_Report3'));" data-toggle='tooltip' data-placement='bottom' title='ปริ้นข้อมูล'><i class="fas fa-print"></i> ปริ้น</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="Print_Report3" style="background-color: #ffffff;">
+                                    <div id="Tab3_Display"></div>
+                                    <div class="loading_action">
+                                        <div class="sk-folding-cube">
+                                            <div class="sk-cube1 sk-cube"></div>
+                                            <div class="sk-cube2 sk-cube"></div>
+                                            <div class="sk-cube4 sk-cube"></div>
+                                            <div class="sk-cube3 sk-cube"></div>
+                                        </div>
+                                        <h5 class="text-center">กำลังโหลดข้อมูล.....</h5>
+                                    </div>
+                                </div>                            
                             </div>
                             <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
-                            
+                                <div class="text-left">
+                                    <h4>ของลืมที่ลูกด้ามารับแล้ว</h4>
+                                    <hr>
+                                </div>
+                                <div class="form-row align-items-center ml-1">
+                                    เลือกวันที่ : 
+                                    <div class="col-sm-2 my-1">
+                                        <input type="text" class="form-control form-control-sm daterange" id="Tab_4_date">
+                                    </div>
+                                    <div class="col-auto my-1">
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="show_tab_4();" data-toggle='tooltip' data-placement='bottom' title='ค้นหาข้อมูล'><i class="fas fa-search"></i> ค้นหา</button>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="print_page(document.getElementById('Print_Report4'));" data-toggle='tooltip' data-placement='bottom' title='ปริ้นข้อมูล'><i class="fas fa-print"></i> ปริ้น</button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div id="Print_Report4" style="background-color: #ffffff;">
+                                    <div id="Tab4_Display"></div>
+                                    <div class="loading_action">
+                                        <div class="sk-folding-cube">
+                                            <div class="sk-cube1 sk-cube"></div>
+                                            <div class="sk-cube2 sk-cube"></div>
+                                            <div class="sk-cube4 sk-cube"></div>
+                                            <div class="sk-cube3 sk-cube"></div>
+                                        </div>
+                                        <h5 class="text-center">กำลังโหลดข้อมูล.....</h5>
+                                    </div>
+                                </div>                            
                             </div>
                         </div>
                     </div>

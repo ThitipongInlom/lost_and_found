@@ -46,4 +46,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('/save_resetpw', 'setting_user@save_resetpw');
     Route::post('/delete_user', 'setting_user@delete_user');
     Route::post('/get_tab_1', 'report@get_tab_1');
+    Route::post('/get_tab_2', 'report@get_tab_2');
+    Route::post('/get_tab_3', 'report@get_tab_3');
+    Route::post('/get_tab_4', 'report@get_tab_4');
 });
