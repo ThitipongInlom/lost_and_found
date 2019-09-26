@@ -260,6 +260,7 @@ var Open_edit_modal = function Open_edit_modal(e) {
                 $("#phone_edit").val(value.phone);
                 $("#email_edit").val(value.email);
                 $("#place_edit").val(value.place);
+                $("#status_edit").val(value.status);
 
                 $('#place_view_edit').val(null).trigger('change');
                 var Place_view = value.place_view.split(',');
@@ -339,6 +340,7 @@ var Save_edit_modal = function Save_edit_modal(e) {
     Data.append('phone_edit', $('#phone_edit').val());
     Data.append('email_edit', $('#email_edit').val());
     Data.append('place_edit', $('#place_edit').val());
+    Data.append('status_edit', $('#status_edit').val());
     Data.append('place_view', $('#place_view_edit').val());
     // Ajax
     $.ajax({

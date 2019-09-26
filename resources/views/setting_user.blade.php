@@ -79,7 +79,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="username_register">ชื่อผุ้ใช้งาน : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="username_register" placeholder="ชื่อผุ้ใช้งาน" autofocus>
+                                <input type="text" class="form-control form-control-sm" id="username_register" tabindex="1" placeholder="ชื่อผุ้ใช้งาน" autofocus>
                                 <div class="input-group-append input-group-text span_input_form">
                                     <span class="fas fa-user"></span>
                                 </div>
@@ -88,7 +88,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="fname">ชื่อ : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="fname" placeholder="ชื่อ">
+                                <input type="text" class="form-control form-control-sm" id="fname" tabindex="3" placeholder="ชื่อ">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-id-card"></i>
                                 </div>
@@ -97,7 +97,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="phone">เบอร์โทร : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="phone" placeholder="เบอร์โทร">
+                                <input type="text" class="form-control form-control-sm" id="phone" tabindex="5" placeholder="เบอร์โทร">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-phone"></i>
                                 </div>
@@ -108,7 +108,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="password_register">รหัสผ่าน : </label>
                                 <div class="input-group">
-                                <input type="password" class="form-control form-control-sm" id="password_register" placeholder="รหัสผ่าน">
+                                <input type="password" class="form-control form-control-sm" id="password_register" tabindex="2" placeholder="รหัสผ่าน">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <span class="fas fa-lock"></span>
                                 </div>
@@ -117,7 +117,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="password_register">นามสกุล : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="lname" placeholder="นามสกุล">
+                                <input type="text" class="form-control form-control-sm" id="lname" tabindex="4" placeholder="นามสกุล">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-id-card"></i>
                                 </div>
@@ -126,7 +126,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="password_register">อีเมล์ : </label>
                                 <div class="input-group">
-                                <input type="email" class="form-control form-control-sm" id="email" placeholder="อีเมล์">
+                                <input type="email" class="form-control form-control-sm" id="email" tabindex="6" placeholder="อีเมล์">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-envelope"></i>
                                 </div>
@@ -162,7 +162,7 @@
                             <div class="mb-1 mt-2">
                                 <label for="fname_edit">ชื่อผุ้ใช้งาน : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="username_edit" placeholder="ชื่อผุ้ใช้งาน" disabled>
+                                <input type="text" class="form-control form-control-sm" id="username_edit" tabindex="1" placeholder="ชื่อผุ้ใช้งาน" disabled>
                                 <div class="input-group-append input-group-text span_input_form">
                                     <span class="fas fa-user"></span>
                                 </div>
@@ -175,7 +175,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="fname_edit">ชื่อ : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="fname_edit" placeholder="ชื่อ">
+                                <input type="text" class="form-control form-control-sm" id="fname_edit" tabindex="2" placeholder="ชื่อ">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-id-card"></i>
                                 </div>
@@ -184,7 +184,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="fname_edit">เบอร์โทร : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="phone_edit" placeholder="เบอร์โทร">
+                                <input type="text" class="form-control form-control-sm" id="phone_edit" tabindex="4" placeholder="เบอร์โทร">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-phone"></i>
                                 </div>
@@ -193,7 +193,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="fname_edit">สถานที่เก็บ : </label>
                                 <div class="input-group">
-                                <select class="form-control form-control-sm" id="place_edit">
+                                <select class="form-control form-control-sm" id="place_edit" tabindex="6">
                                     <option value="">ไม่มีสถานที่เก็บ</option>
                                     @foreach ($place as $row)
                                         <option value="{{ $row->type_name }}" >{{ $row->type_name }}</option>  
@@ -209,7 +209,7 @@
                             <div class="mb-2 mt-2">
                                 <label for="fname_edit">นามสกุล : </label>
                                 <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="lname_edit" placeholder="นามสกุล">
+                                <input type="text" class="form-control form-control-sm" id="lname_edit" tabindex="3" placeholder="นามสกุล">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-id-card"></i>
                                 </div>
@@ -218,12 +218,24 @@
                             <div class="mb-2 mt-2">
                                 <label for="fname_edit">อีเมล์ : </label>
                                 <div class="input-group">
-                                <input type="email" class="form-control form-control-sm" id="email_edit" placeholder="อีเมล์">
+                                <input type="email" class="form-control form-control-sm" id="email_edit" tabindex="5" placeholder="อีเมล์">
                                 <div class="input-group-append input-group-text span_input_form">
                                     <i class="fas fa-envelope"></i>
                                 </div>
                                 </div>
-                            </div>                 
+                            </div>
+                            <div class="mb-2 mt-2">
+                                <label for="status_edit">สิทธ์ การใช้งาน : </label>
+                                <div class="input-group">
+                                <select class="form-control form-control-sm" id="status_edit" tabindex="7">
+                                    <option value="admin">Admin</option>  
+                                    <option value="user">User</option>  
+                                </select>
+                                <div class="input-group-append input-group-text span_input_form">
+                                    <i class="fas fa-user-cog"></i>
+                                </div>
+                                </div>
+                            </div>                  
                         </div>
                     </div>
                     <div class="row">

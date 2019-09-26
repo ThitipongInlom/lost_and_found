@@ -530,6 +530,16 @@ var Open_model_edit = function Open_model_edit(e) {
                 if (res.data.img_3 == null) {
                     $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>' + add_pictures + ' 3</b></div>');
                 }
+            } else{
+                if (res.data.img_1 == null) {
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_1" style="cursor: pointer;" onclick="file_edit_select(1,77);"><b>' + add_pictures + ' 1</b></div>');
+                }
+                if (res.data.img_2 == null) {
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_2" style="cursor: pointer;" onclick="file_edit_select(2,77);"><b>' + add_pictures + ' 2</b></div>');
+                }
+                if (res.data.img_3 == null) {
+                    $(".edit_img_div").append('<div class="edit_img_div_images mb-1 text-center" id="edit_img_div_add_3" style="cursor: pointer;" onclick="file_edit_select(3,77);"><b>' + add_pictures + ' 3</b></div>');
+                }
             }
         }
     });

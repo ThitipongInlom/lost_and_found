@@ -68,6 +68,7 @@ class setting_user extends Controller
         $user->phone = $request->post('phone_edit');
         $user->email = $request->post('email_edit');
         $user->place = $request->post('place_edit');
+        $user->status = $request->post('status_edit');
         $user->place_view = $request->post('place_view');
         $user->save();
         return response()->json(['status' => 'success', 'error_text' => 'อัพเดตเสร็จสิ้น'],200);

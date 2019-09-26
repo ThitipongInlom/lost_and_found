@@ -31,7 +31,7 @@
         </style>
     </head>
     <body class="bodybackground">
-        @include('layout/Head')
+        @include('layout/head')
         <!-- Body -->
         <div class="row mt-3" style="margin-right: 10px;margin-left: 10px;">
           <div class="col-12 col-sm-6 col-md-3">
