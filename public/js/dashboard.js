@@ -320,16 +320,17 @@ var Open_model_info = function Open_model_info(e) {
             $(".carousel-control-prev").remove();
             $(".carousel-control-next").remove();
             // Add Img
+            var img_default = "this.onerror=null;this.src='img/main/default.jpg';";
             if (res.data.img_1 != null) {
-                $(".carousel-inner").append('<div class="carousel-item active" id="div-inner-1" name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-1" class="d-block rounded" width="200" height="150"></div>');
+                $(".carousel-inner").append('<div class="carousel-item active" id="div-inner-1" name_img="' + res.data.img_1 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-1" class="d-block rounded" width="200" height="150" onerror="' + img_default + '"></div>');
                 $("#carousel-inner-1").attr('src', 'img/main/' + res.data.img_1);
             }
             if (res.data.img_2 != null) {
-                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-2" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-2" class="d-block rounded" width="200" height="150"></div>');
+                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-2" name_img="' + res.data.img_2 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-2" class="d-block rounded" width="200" height="150" onerror="' + img_default + '"></div>');
                 $("#carousel-inner-2").attr('src', 'img/main/' + res.data.img_2);
             }
             if (res.data.img_3 != null) {
-                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-3" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-3" class="d-block rounded" width="200" height="150"></div>');
+                $(".carousel-inner").append('<div class="carousel-item" id="div-inner-3" name_img="' + res.data.img_3 + '" style="cursor: pointer;" onclick="OpenImage_windows(this);"><img src="" id="carousel-inner-3" class="d-block rounded" width="200" height="150" onerror="' + img_default + '"></div>');
                 $("#carousel-inner-3").attr('src', 'img/main/' + res.data.img_3);
             }
             // Add Next IMG
@@ -756,16 +757,17 @@ var Open_model_print = function Open_model_print(e) {
             $("#print_img_1").remove();
             $("#print_img_2").remove();
             $("#print_img_3").remove();
+            var img_default = "this.onerror=null;this.src='img/main/default.jpg';";
             if (res.data.img_1 != null) {
-                $("#print_td_img_1").append('<img src="" id="print_img_1" class="d-block rounded" width="200" height="150">');
+                $("#print_td_img_1").append('<img src="" id="print_img_1" class="d-block rounded" width="200" height="150" onerror="' + img_default + '">');
                 $("#print_img_1").attr('src', 'img/main/' + res.data.img_1);
             }
             if (res.data.img_2 != null) {
-                $("#print_td_img_2").append('<img src="" id="print_img_2" class="d-block rounded" width="200" height="150">');
+                $("#print_td_img_2").append('<img src="" id="print_img_2" class="d-block rounded" width="200" height="150" onerror="' + img_default + '">');
                 $("#print_img_2").attr('src', 'img/main/' + res.data.img_2);
             }
             if (res.data.img_3 != null) {
-                $("#print_td_img_3").append('<img src="" id="print_img_3" class="d-block rounded" width="200" height="150">');
+                $("#print_td_img_3").append('<img src="" id="print_img_3" class="d-block rounded" width="200" height="150" onerror="' + img_default + '">');
                 $("#print_img_3").attr('src', 'img/main/' + res.data.img_3);
             }
             $("#submit_print").attr('item_id', res.data.list_id);
