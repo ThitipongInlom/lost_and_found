@@ -31,7 +31,7 @@
         </style>
     </head>
     <body class="bodybackground">
-        @include('layout/Head')
+        @include('layout/head')
         <div class="row">
             <div class="col-md-12 mt-3">
                 <div class="card card-success" style="margin-right: 20px;margin-left: 20px;">

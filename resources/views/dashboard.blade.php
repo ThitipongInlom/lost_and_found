@@ -362,6 +362,12 @@
                                         <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.record_by')" id="view_record_by" disabled>
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <b>@lang('dashboard.date') :</b>
+                                        <input class="form-control form-control-sm" type="text" placeholder="@lang('dashboard.date')" id="view_found_datesave" disabled>
+                                    </div>
+                                </div>
                                 </div>
                                 </div>
                             </div>

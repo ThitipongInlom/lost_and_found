@@ -309,6 +309,7 @@ var Open_model_info = function Open_model_info(e) {
             $("#view_found_by").val(res.data.found_by);
             $("#view_locate_track").val(res.data.locate_track);
             $("#view_record_by").val(res.data.record_by);
+            $("#view_found_datesave").val(moment(res.data.date_found).format('DD/MM/YYYY'));
             // IMG
             // Reset Img 
             $("#carousel-inner-1").remove();

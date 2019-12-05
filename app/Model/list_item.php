@@ -42,8 +42,6 @@ class list_item extends Model
         'other_return_guest'
     ];
 
-    public $timestamps = false;
-
      /**
      * ชื่อ ตาราง 
      */   
