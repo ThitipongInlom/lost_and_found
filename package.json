@@ -42,7 +42,7 @@
         "icheck-bootstrap": "^3.0.1",
         "jquery.redirect": "^1.1.4",
         "ladda": "^2.0.1",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "package.json": "^2.0.1",
         "select2": "^4.0.7",
         "simplebar": "^4.1.0",
